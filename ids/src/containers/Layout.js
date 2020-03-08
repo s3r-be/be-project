@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Container,
   Divider,
@@ -25,9 +25,17 @@ class CustomLayout extends React.Component {
               <Menu.Item header>Home</Menu.Item>
             </Link>
             {authenticated ? (
-              <Menu.Item header onClick={() => this.props.logout()}>
-                Logout
-              </Menu.Item>
+              <React.Fragment>
+                <Menu.Item header onClick={() => this.props.logout()}>
+                  Logout
+                </Menu.Item>
+                <Link to="/networkLogs">
+                  <Menu.Item header>Network Logs</Menu.Item>
+                </Link>
+                <Link to="/dashboard">
+                  <Menu.Item header>Dashboard</Menu.Item>
+                </Link>
+              </React.Fragment>
             ) : (
                 <React.Fragment>
                   <Link to="/login">
@@ -36,8 +44,11 @@ class CustomLayout extends React.Component {
                   <Link to="/signup">
                     <Menu.Item header>Signup</Menu.Item>
                   </Link>
-                  <Link to="/test">
-                    <Menu.Item header>Test</Menu.Item>
+                  <Link to="/networkLogs">
+                    <Menu.Item header>Network Logs</Menu.Item>
+                  </Link>
+                  <Link to="/dashboard">
+                    <Menu.Item header>Dashboard</Menu.Item>
                   </Link>
                 </React.Fragment>
               )}

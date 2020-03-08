@@ -5,13 +5,16 @@ import Hoc from "./hoc/hoc";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import HomepageLayout from "./containers/Home";
-import Test from "./containers/Test";
+
+import NetworkLogs from "./containers/NetworkLogs";
+import Dashboard from "./containers/Dashboard";
 
 const BaseRouter = () => (
   <Hoc>
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
-    <Route path="/test" component={Test} />
+    <Route path="/networkLogs" component={NetworkLogs} />
+    <Route path="/dashboard" component={Dashboard} />
     <Route exact path="/" component={HomepageLayout} />
   </Hoc>
 );
