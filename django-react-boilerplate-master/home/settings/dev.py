@@ -6,6 +6,8 @@ ALLOWED_HOSTS += ['127.0.0.1']
 DEBUG = True
 
 WSGI_APPLICATION = 'home.wsgi.dev.application'
+# Channels
+ASGI_APPLICATION = 'home.routing.application'
 
 DATABASES = {
     'default': {

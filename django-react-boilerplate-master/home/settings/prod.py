@@ -5,6 +5,8 @@ from .base import *
 DEBUG = False
 ALLOWED_HOSTS += ['http://domain.com']
 WSGI_APPLICATION = 'home.wsgi.prod.application'
+# Channels
+ASGI_APPLICATION = 'home.routing.application'
 
 DATABASES = {
     'default': {
