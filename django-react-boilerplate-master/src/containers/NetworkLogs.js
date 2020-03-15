@@ -6,41 +6,76 @@ import {
 } from "semantic-ui-react";
 import { func } from "prop-types";
 
-var roomName = 'lobby';
-var chatSocket = new WebSocket(
-    'ws://' + window.location.host +
-    '/ws/chat/' + roomName + '/');
+// var roomName = 'lobby';
+// // create websocket
+// var chatSocket = new WebSocket(
+//     'ws://' + window.location.host +
+//     '/ws/chat/' + roomName + '/');
 
-chatSocket.onmessage = function (e) {
-    var data = JSON.parse(e.data);
-    var message = data['message'];
-    var message2 = data['message2'];
-    console.log(message + message2);
-};
+// // on receiving message
+// chatSocket.onmessage = function (e) {
+//     var data = JSON.parse(e.data);
+//     // var message = '';
+//     // data.forEach(element => {
+//     //     message += element + '';
+//     // });
+//     console.log(data);
+// };
 
-chatSocket.onclose = function (e) {
-    console.error('Chat socket closed unexpectedly');
-};
+// // on closing web socket
+// chatSocket.onclose = function (e) {
+//     console.error('Chat socket closed unexpectedly');
+// };
 
-var testFn = function () {
-    chatSocket.send(JSON.stringify({
-        'message': 'hello'
-    }));
-}
+// // test function that sends message: hello
+// var testFn = function () {
+//     chatSocket.send(JSON.stringify({
+//         'message': 'hello'
+//     }));
+// }
 
 class TestClass extends React.Component {
+
+    roomName = 'lobby';
+    chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/chat/' + this.roomName + '/');
+
+    // test function that sends message: hello
+    testFn = () => {
+        this.chatSocket.send(JSON.stringify({
+            'message': 'hello'
+        }));
+    }
+
+    componentDidMount() {
+        // on receiving message
+        this.chatSocket.onmessage = (e) => {
+            var data = JSON.parse(e.data);
+            // var message = '';
+            // data.forEach(element => {
+            //     message += element + '';
+            // });
+            console.log(data);
+        };
+
+        // on closing web socket
+        this.chatSocket.onclose = (e) => {
+            console.error('Chat socket closed unexpectedly');
+        };
+    }
 
     render() {
         return (
             <Container>
                 <Segment style={{ padding: "8em 0em" }} vertical>
                     Hello
-                </Segment>
+                    </Segment>
 
                 <Segment>
-                    <button onClick={testFn}>
+                    <button onClick={this.testFn}>
                         click
-                    </button>
+                        </button>
                 </Segment>
             </Container>
         );
