@@ -6,10 +6,7 @@ import {
   Divider,
   Grid,
   Header,
-  Icon,
   Image,
-  List,
-  Menu,
   Responsive,
   Segment,
   Sidebar,
@@ -29,7 +26,6 @@ class DesktopContainer extends Component {
 
   render() {
     const { children } = this.props;
-    const { fixed } = this.state;
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
@@ -57,7 +53,6 @@ class MobileContainer extends Component {
 
   render() {
     const { children } = this.props;
-    const { sidebarOpened } = this.state;
 
     return (
       <Responsive

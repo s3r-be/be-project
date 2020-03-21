@@ -9,11 +9,11 @@ import HomepageLayout from "./containers/Home";
 import NetworkLogs from "./containers/NetworkLogs";
 import Dashboard from "./containers/Dashboard";
 
-const BaseRouter = () => (
+const BaseRouter = (routerProps) => (
   <Hoc>
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
-    <Route path="/networkLogs" component={NetworkLogs} />
+    <Route path="/networkLogs" render={(props) => <NetworkLogs {...props} chatSocket={routerProps.chatSocket} />} />
     <Route path="/dashboard" component={Dashboard} />
     <Route exact path="/" component={HomepageLayout} />
   </Hoc>

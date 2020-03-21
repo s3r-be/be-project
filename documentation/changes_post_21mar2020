@@ -1,0 +1,7 @@
+Changes post 21 March 2020:
+
+21 mar 2020
+- created single instance of web socket "chatSocket" in index.js
+- passing it to network.js through props
+- flow
+	index.js > app.js > routes.js > NetworkLog.js

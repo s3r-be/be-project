@@ -7,6 +7,7 @@ import "semantic-ui-css/semantic.min.css";
 import CustomLayout from "./containers/Layout";
 
 class App extends Component {
+
   componentDidMount() {
     this.props.onTryAutoSignup();
   }
@@ -15,7 +16,7 @@ class App extends Component {
     return (
       <Router>
         <CustomLayout {...this.props}>
-          <BaseRouter />
+          <BaseRouter chatSocket={this.props.chatSocket} />
         </CustomLayout>
       </Router>
     );

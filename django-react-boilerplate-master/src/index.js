@@ -16,9 +16,14 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)));
 
+const roomName = 'lobby';
+const chatSocket = new WebSocket(
+  'ws://' + window.location.host +
+  '/ws/chat/' + roomName + '/');
+
 const app = (
   <Provider store={store}>
-    <App />
+    <App chatSocket={chatSocket} />
   </Provider>
 );
 

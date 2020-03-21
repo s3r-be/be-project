@@ -4,42 +4,14 @@ import {
     Container,
     Segment
 } from "semantic-ui-react";
-import { func } from "prop-types";
-
-// var roomName = 'lobby';
-// // create websocket
-// var chatSocket = new WebSocket(
-//     'ws://' + window.location.host +
-//     '/ws/chat/' + roomName + '/');
-
-// // on receiving message
-// chatSocket.onmessage = function (e) {
-//     var data = JSON.parse(e.data);
-//     // var message = '';
-//     // data.forEach(element => {
-//     //     message += element + '';
-//     // });
-//     console.log(data);
-// };
-
-// // on closing web socket
-// chatSocket.onclose = function (e) {
-//     console.error('Chat socket closed unexpectedly');
-// };
-
-// // test function that sends message: hello
-// var testFn = function () {
-//     chatSocket.send(JSON.stringify({
-//         'message': 'hello'
-//     }));
-// }
 
 class TestClass extends React.Component {
 
-    roomName = 'lobby';
-    chatSocket = new WebSocket(
-        'ws://' + window.location.host +
-        '/ws/chat/' + this.roomName + '/');
+    constructor(props) {
+        super(props)
+        this.chatSocket = this.props.chatSocket;
+        console.log(this.chatSocket);
+    }
 
     // test function that sends message: hello
     testFn = () => {
@@ -52,10 +24,6 @@ class TestClass extends React.Component {
         // on receiving message
         this.chatSocket.onmessage = (e) => {
             var data = JSON.parse(e.data);
-            // var message = '';
-            // data.forEach(element => {
-            //     message += element + '';
-            // });
             console.log(data);
         };
 
