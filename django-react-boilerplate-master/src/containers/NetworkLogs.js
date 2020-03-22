@@ -10,7 +10,6 @@ class TestClass extends React.Component {
     constructor(props) {
         super(props)
         this.chatSocket = this.props.chatSocket;
-        console.log(this.chatSocket);
     }
 
     // test function that sends message: hello

@@ -14,6 +14,34 @@ import { connect } from "react-redux";
 import { logout } from "../store/actions/auth";
 
 class CustomLayout extends React.Component {
+
+  constructor(props) {
+    super(props);
+    // get attack notif socket that was created in index
+    this.attackNotif = props.attackNotif;
+  }
+
+  componentDidMount() {
+    // once web socket has opened
+    this.attackNotif.onopen = (e) => {
+      // send message to initiate notification data transfer
+      this.attackNotif.send(JSON.stringify({
+        'message': 'initiate notification transfer'
+      }))
+    }
+
+    // on receiving message
+    this.attackNotif.onmessage = (e) => {
+      var data = JSON.parse(e.data);
+      console.log('attack notif: ' + data.message);
+    };
+
+    // on closing web socket
+    this.attackNotif.onclose = (e) => {
+      console.error('attackNotif socket closed unexpectedly');
+    };
+  }
+
   render() {
     const { authenticated } = this.props;
     return (

@@ -12,10 +12,11 @@ class App extends Component {
     this.props.onTryAutoSignup();
   }
 
+  // pass attack notif socket to custom layout and pass chat socket to base router (for network log)
   render() {
     return (
       <Router>
-        <CustomLayout {...this.props}>
+        <CustomLayout {...this.props} attackNotif={this.props.attackNotif}>
           <BaseRouter chatSocket={this.props.chatSocket} />
         </CustomLayout>
       </Router>

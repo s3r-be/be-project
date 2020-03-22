@@ -16,14 +16,21 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)));
 
+// create socket for network logs
 const roomName = 'lobby';
 const chatSocket = new WebSocket(
   'ws://' + window.location.host +
   '/ws/chat/' + roomName + '/');
 
+// create socket for notification
+const attackNotif = new WebSocket(
+  'ws://' + window.location.host +
+  '/ws/attackNotif/');
+
+// pass sockets as props - so only one instance created here is maintained
 const app = (
   <Provider store={store}>
-    <App chatSocket={chatSocket} />
+    <App chatSocket={chatSocket} attackNotif={attackNotif} />
   </Provider>
 );
 

@@ -10,8 +10,11 @@ application = ProtocolTypeRouter({
     'websocket': AuthMiddlewareStack(
         URLRouter(
             [
+                # path to network js socket
                 re_path(r'ws/chat/(?P<room_name>\w+)/$',
                         consumers.ChatConsumer),
+                # path to notification socket
+                re_path(r'ws/attackNotif/$', consumers.attackNotif)
             ]
         )
     ),
