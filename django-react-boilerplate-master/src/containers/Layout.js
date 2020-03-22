@@ -12,6 +12,7 @@ import {
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../store/actions/auth";
+import { store } from 'react-notifications-component';
 
 class CustomLayout extends React.Component {
 
@@ -19,6 +20,13 @@ class CustomLayout extends React.Component {
     super(props);
     // get attack notif socket that was created in index
     this.attackNotif = props.attackNotif;
+  }
+
+  // test function that sends message: hello
+  testFn = () => {
+    this.attackNotif.send(JSON.stringify({
+      'message': 'hello'
+    }));
   }
 
   componentDidMount() {
@@ -33,6 +41,21 @@ class CustomLayout extends React.Component {
     // on receiving message
     this.attackNotif.onmessage = (e) => {
       var data = JSON.parse(e.data);
+      // create notification for attack detected
+      store.addNotification({
+        title: "Attack detected!",
+        message: data.message,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+          pauseOnHover: true
+        }
+      });
       console.log('attack notif: ' + data.message);
     };
 
@@ -48,6 +71,9 @@ class CustomLayout extends React.Component {
       <div>
         <Menu fixed="top" inverted>
           <Container>
+            <button onClick={this.testFn}>
+              click
+</button>
             <Link to="/">
               <Menu.Item header>Home</Menu.Item>
             </Link>

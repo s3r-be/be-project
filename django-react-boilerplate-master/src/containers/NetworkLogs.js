@@ -42,7 +42,7 @@ class TestClass extends React.Component {
                 <Segment>
                     <button onClick={this.testFn}>
                         click
-                        </button>
+                    </button>
                 </Segment>
             </Container>
         );

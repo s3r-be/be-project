@@ -5,6 +5,8 @@ import registerServiceWorker from "./registerServiceWorker";
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 import authReducer from "./store/reducers/auth";
 
@@ -30,6 +32,7 @@ const attackNotif = new WebSocket(
 // pass sockets as props - so only one instance created here is maintained
 const app = (
   <Provider store={store}>
+    <ReactNotification />
     <App chatSocket={chatSocket} attackNotif={attackNotif} />
   </Provider>
 );
