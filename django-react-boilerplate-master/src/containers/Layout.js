@@ -12,58 +12,8 @@ import {
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../store/actions/auth";
-import { store } from 'react-notifications-component';
 
 class CustomLayout extends React.Component {
-
-  constructor(props) {
-    super(props);
-    // get attack notif socket that was created in index
-    this.attackNotif = props.attackNotif;
-  }
-
-  // test function that sends message: hello
-  testFn = () => {
-    this.attackNotif.send(JSON.stringify({
-      'message': 'hello'
-    }));
-  }
-
-  componentDidMount() {
-    // once web socket has opened
-    this.attackNotif.onopen = (e) => {
-      // send message to initiate notification data transfer
-      this.attackNotif.send(JSON.stringify({
-        'message': 'initiate notification transfer'
-      }))
-    }
-
-    // on receiving message
-    this.attackNotif.onmessage = (e) => {
-      var data = JSON.parse(e.data);
-      // create notification for attack detected
-      store.addNotification({
-        title: "Attack detected!",
-        message: data.message,
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeIn"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-          pauseOnHover: true
-        }
-      });
-      console.log('attack notif: ' + data.message);
-    };
-
-    // on closing web socket
-    this.attackNotif.onclose = (e) => {
-      console.error('attackNotif socket closed unexpectedly');
-    };
-  }
 
   render() {
     const { authenticated } = this.props;
@@ -71,9 +21,6 @@ class CustomLayout extends React.Component {
       <div>
         <Menu fixed="top" inverted>
           <Container>
-            <button onClick={this.testFn}>
-              click
-</button>
             <Link to="/">
               <Menu.Item header>Home</Menu.Item>
             </Link>
@@ -87,6 +34,12 @@ class CustomLayout extends React.Component {
                 </Link>
                 <Link to="/dashboard">
                   <Menu.Item header>Dashboard</Menu.Item>
+                </Link>
+                <Link to="/visualisations">
+                  <Menu.Item header>Visualisations</Menu.Item>
+                </Link>
+                <Link to="/notifications">
+                  <Menu.Item header>Notifications</Menu.Item>
                 </Link>
               </React.Fragment>
             ) : (
@@ -102,6 +55,12 @@ class CustomLayout extends React.Component {
                   </Link>
                   <Link to="/dashboard">
                     <Menu.Item header>Dashboard</Menu.Item>
+                  </Link>
+                  <Link to="/visualisations">
+                    <Menu.Item header>Visualisations</Menu.Item>
+                  </Link>
+                  <Link to="/notifications">
+                    <Menu.Item header>Notifications</Menu.Item>
                   </Link>
                 </React.Fragment>
               )}

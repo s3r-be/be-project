@@ -5,12 +5,12 @@ import {
     Segment
 } from "semantic-ui-react";
 
-class Dashboard extends React.Component {
+class Visualisations extends React.Component {
     render() {
         return (
             <Container>
                 <Segment style={{ padding: "8em 0em" }} vertical>
-                    Hello
+                    Visualisations
                 </Segment>
             </Container>
         );
@@ -18,4 +18,4 @@ class Dashboard extends React.Component {
 }
 
 export default connect(
-)(Dashboard);
+)(Visualisations);

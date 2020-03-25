@@ -5,7 +5,7 @@ import {
     Segment
 } from "semantic-ui-react";
 
-class TestClass extends React.Component {
+class NetworkLogs extends React.Component {
 
     constructor(props) {
         super(props)
@@ -50,4 +50,4 @@ class TestClass extends React.Component {
 }
 
 export default connect(
-)(TestClass);
+)(NetworkLogs);

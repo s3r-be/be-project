@@ -66,6 +66,8 @@ class ChatConsumer(WebsocketConsumer):
 
 
 class attackNotif(WebsocketConsumer):
+    count = 0
+
     def connect(self):
         self.accept()
 
@@ -73,8 +75,10 @@ class attackNotif(WebsocketConsumer):
         pass
 
     def receive(self, text_data):
+        self.count += 1
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         self.send(text_data=json.dumps({
+            'id': self.count,
             'message': 'test message'
         }))
