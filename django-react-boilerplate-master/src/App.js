@@ -28,7 +28,7 @@ class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
 
-    // once web socket has opened
+    // once attackNotif web socket has opened
     this.attackNotif.onopen = (e) => {
       // send message to initiate notification data transfer
       this.attackNotif.send(JSON.stringify({

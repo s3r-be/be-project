@@ -19,10 +19,12 @@ class Notifications extends React.Component {
     createTable = () => {
         let table = []
         let headers = [];
+
         // add headers to the table
         headers.push(<Table.HeaderCell>ID</Table.HeaderCell>);
         headers.push(<Table.HeaderCell>Message</Table.HeaderCell>);
         table.push(<Table.Header><Table.Row>{headers}</Table.Row></Table.Header>);
+
         // Outer loop to create parent
         for (let i = 0; i < this.props.notifList.length; i++) {
             let children = []

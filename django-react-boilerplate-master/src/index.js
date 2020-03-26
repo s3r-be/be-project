@@ -29,6 +29,14 @@ const attackNotif = new WebSocket(
   'ws://' + window.location.host +
   '/ws/attackNotif/');
 
+// once chatSocket web socket has opened
+chatSocket.onopen = (e) => {
+  // send message to initiate network log data transfer
+  chatSocket.send(JSON.stringify({
+    'message': 'initiate network log data transfer'
+  }))
+}
+
 // pass sockets as props - so only one instance created here is maintained
 const app = (
   <Provider store={store}>
