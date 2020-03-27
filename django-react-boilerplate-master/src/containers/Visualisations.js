@@ -1,12 +1,12 @@
 import React from "react";
-import model from "../Images/model.png";
-import Matrix from "../Images/normalized_confusion.png";
-import Corr from "../Images/Correlation.png";
-import WithOverProtocolI from "../Images/pOversampled.png";
-import WithoutOverProtocolI from "../Images/protoc.png";
-import toa from "../Images/TypeofAttacks.png";
-import Otoa from "../Images/Oversampling.png";
-import main from "../Images/main.png";
+import model from "../Images/Visualisations/model.png";
+import Matrix from "../Images/Visualisations/normalized_confusion.png";
+import Corr from "../Images/Visualisations/Correlation.png";
+import WithOverProtocolI from "../Images/Visualisations/pOversampled.png";
+import WithoutOverProtocolI from "../Images/Visualisations/protoc.png";
+import toa from "../Images/Visualisations/TypeofAttacks.png";
+import Otoa from "../Images/Visualisations/Oversampling.png";
+import main from "../Images/Visualisations/main.png";
 import { connect } from "react-redux";
 import {
     Button,
