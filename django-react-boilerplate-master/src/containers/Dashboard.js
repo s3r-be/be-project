@@ -25,9 +25,11 @@ class Imgg extends React.Component {
 
     componentDidMount() {
         this.updateData();
-        this.interval = setInterval(() => {
-            this.updateData();
-        }, 100);
+        // add this for multiple requests
+
+        // this.interval = setInterval(() => {
+        //     this.updateData();
+        // }, 100);
     }
 
     writearray = (d) => {

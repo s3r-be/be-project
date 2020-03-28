@@ -41,15 +41,15 @@ class App extends Component {
       var data = JSON.parse(e.data);
       // create notification for attack detected
       store.addNotification({
-        title: data.id + " Attack detected!",
-        message: data.message,
+        title: " Attack detected! " + data['attack.type'],
+        message: data['frame.time'],
         type: "danger",
         insert: "top",
         container: "top-right",
         animationIn: ["animated", "fadeIn"],
         animationOut: ["animated", "fadeOut"],
         dismiss: {
-          duration: 5000,
+          duration: 7000,
           onScreen: true,
           pauseOnHover: true
         }
@@ -72,9 +72,6 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <button onClick={this.testFn} style={{ marginTop: '3em' }}>
-          click
-        </button>
         <CustomLayout>
           <BaseRouter chatSocket={this.props.chatSocket} notifList={this.state.notifList} />
         </CustomLayout>
