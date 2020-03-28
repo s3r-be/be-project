@@ -13,20 +13,17 @@ class App extends Component {
     super(props);
     // get attack notif socket that was created in index
     this.attackNotif = props.attackNotif;
+    this.chatSocket = props.chatSocket;
     this.state = {
-      notifList: []
+      notifList: [],
+      netLogs: []
     }
-  }
-
-  // test function that sends message: hello
-  testFn = () => {
-    this.attackNotif.send(JSON.stringify({
-      'message': 'hello'
-    }));
   }
 
   componentDidMount() {
     this.props.onTryAutoSignup();
+
+    // ----------------------------------------------------------------------- attack notif start
 
     // once attackNotif web socket has opened
     this.attackNotif.onopen = (e) => {
@@ -41,7 +38,7 @@ class App extends Component {
       var data = JSON.parse(e.data);
       // create notification for attack detected
       store.addNotification({
-        title: " Attack detected! " + data['attack.type'],
+        title: " Attack detected! - " + data['attack.type'],
         message: data['frame.time'],
         type: "danger",
         insert: "top",
@@ -58,14 +55,36 @@ class App extends Component {
       this.setState(prevState => ({
         notifList: [...prevState.notifList, data]
       }))
-      console.log('attack notif: ' + data.message);
-      console.log('state notif list: ', this.state.notifList);
+      // console.log('attack notif: ' + data.message);
+      // console.log('state notif list: ', this.state.notifList);
     };
 
     // on closing web socket
     this.attackNotif.onclose = (e) => {
       console.error('attackNotif socket closed unexpectedly');
     };
+
+    // ----------------------------------------------------------------------- attack notif end
+
+    // ----------------------------------------------------------------------- chat socket start
+
+    // on receiving message
+    this.chatSocket.onmessage = (e) => {
+      var data = JSON.parse(e.data);
+      // appending received message to state
+      this.setState(prevState => ({
+        netLogs: [...prevState.netLogs, data]
+      }))
+      // console.log(data);
+      // console.log('state netLogs: ', this.state.netLogs);
+    };
+
+    // on closing web socket
+    this.chatSocket.onclose = (e) => {
+      console.error('Chat socket closed unexpectedly');
+    };
+
+    // ----------------------------------------------------------------------- chat socket end
   }
 
   // pass attack notif socket to custom layout and pass chat socket to base router (for network log)
@@ -73,7 +92,7 @@ class App extends Component {
     return (
       <Router>
         <CustomLayout>
-          <BaseRouter chatSocket={this.props.chatSocket} notifList={this.state.notifList} />
+          <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList} />
         </CustomLayout>
       </Router>
     );

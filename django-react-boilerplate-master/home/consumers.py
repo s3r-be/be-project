@@ -11,6 +11,16 @@ filename = 'home/model2.txt'
 infile = open(filename, 'rb')
 rf_model = pickle.load(infile)
 
+# attack type dictionary - key -> prediction, value -> attack type
+attack_type = {
+    0: 'Normal',
+    1: 'Wrong Setup',
+    2: 'DDOS',
+    3: 'Data Type Probing',
+    4: 'Scan Attack',
+    5: 'MITM'
+}
+
 # ---------------------------------------------------------------------------------------- chat consumer - network logs
 
 
@@ -200,7 +210,7 @@ class attackNotif(WebsocketConsumer):
                     if not (prev_mac_source == returnLog[3] and prev_mac_dest == returnLog[4] and prev_prediction == prediction):
 
                         self.send(text_data=json.dumps({
-                            'attack.type': str(prediction),
+                            'attack.type': attack_type[prediction],
                             'frame.number': returnLog[0],
                             'frame.time': returnLog[1],
                             'frame.len': returnLog[2],

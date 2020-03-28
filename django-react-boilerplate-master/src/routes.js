@@ -15,7 +15,7 @@ const BaseRouter = (routerProps) => (
   <Hoc>
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
-    <Route path="/networkLogs" render={(props) => <NetworkLogs {...props} chatSocket={routerProps.chatSocket} />} />
+    <Route path="/networkLogs" render={(props) => <NetworkLogs {...props} netLogs={routerProps.netLogs} />} />
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/visualisations" component={Visualisations} />
     <Route path="/notifications" render={(props) => <Notifications {...props} notifList={routerProps.notifList} />} />

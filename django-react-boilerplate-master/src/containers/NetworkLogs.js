@@ -1,19 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-    Container,
     Segment,
-    Table
+    Table,
+    Header,
+    Icon
 } from "semantic-ui-react";
 
 class NetworkLogs extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.chatSocket = this.props.chatSocket;
-        this.state = {
-            netLogs: []
-        }
+    componentDidUpdate() {
+        const netLogs = this.props.netLogs;
+        // console.log('net Logs in NetworkLogs.js', netLogs);
     }
 
     createTable = () => {
@@ -22,15 +20,37 @@ class NetworkLogs extends React.Component {
 
         // add headers to the table - column headings
         headers.push(<Table.HeaderCell>Frame Number</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Frame time</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>Frame Time</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>Frame Length</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>Mac Source</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>Mac Dest</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>IP Source</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>IP Dest</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>IP Protocol</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>IP Length</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>TCP Length</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>TCP Source Port</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>TCP Dest Port</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell>Info</Table.HeaderCell>);
         table.push(<Table.Header><Table.Row>{headers}</Table.Row></Table.Header>);
 
         // Outer loop to create parent
-        for (let i = 0; i < this.state.netLogs.length; i++) {
+        for (let i = this.props.netLogs.length - 1; i >= 0; i--) {
             let children = []
             // push children - add column values here
-            children.push(<Table.Cell>{this.state.netLogs[i]['frame.number']}</Table.Cell>)
-            children.push(<Table.Cell>{this.state.netLogs[i]['frame.time']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['frame.number']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['frame.time']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['frame.len']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['eth.src']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['eth.dst']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['ip.src']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['ip.dst']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['ip.proto']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['ip.len']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['tcp.len']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['tcp.srcport']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['tcp.dstport']}</Table.Cell>)
+            children.push(<Table.Cell>{this.props.netLogs[i]['_ws.col.Info']}</Table.Cell>)
             //Create the parent and add the children
             table.push(<Table.Body><Table.Row children={children} /></Table.Body>)
         }
@@ -38,34 +58,18 @@ class NetworkLogs extends React.Component {
         return table
     }
 
-    componentDidMount() {
-
-        // on receiving message
-        this.chatSocket.onmessage = (e) => {
-            var data = JSON.parse(e.data);
-            // appending received message to state
-            this.setState(prevState => ({
-                netLogs: [...prevState.netLogs, data]
-            }))
-            console.log(data);
-            console.log('state netLogs: ', this.state.netLogs);
-        };
-
-        // on closing web socket
-        this.chatSocket.onclose = (e) => {
-            console.error('Chat socket closed unexpectedly');
-        };
-    }
-
     render() {
         return (
-            <Container>
-                <Segment style={{ padding: "8em 0em" }} vertical>
-                    <Table celled>
-                        {this.createTable()}
-                    </Table>
+            <div style={{ marginLeft: '3em', marginRight: '3em' }}>
+                <Segment style={{ marginTop: '4em', textAlign: "center" }} vertical>
+                    <Header as='h3'>
+                        <Icon name='connectdevelop' />Network Logs
+                    </Header>
                 </Segment>
-            </Container>
+                <Table celled>
+                    {this.createTable()}
+                </Table>
+            </div>
         );
     }
 }

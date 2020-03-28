@@ -11,7 +11,7 @@ class Notifications extends React.Component {
 
     componentDidUpdate() {
         const notifList = this.props.notifList;
-        console.log('notif list in notifications.js', notifList);
+        // console.log('notif list in notifications.js', notifList);
     }
 
     createTable = () => {
@@ -36,7 +36,7 @@ class Notifications extends React.Component {
         table.push(<Table.Header><Table.Row>{headers}</Table.Row></Table.Header>);
 
         // Outer loop to create parent
-        for (let i = 0; i < this.props.notifList.length; i++) {
+        for (let i = this.props.notifList.length - 1; i >= 0; i--) {
             let children = []
             children.push(<Table.Cell>{this.props.notifList[i]['attack.type']}</Table.Cell>)
             children.push(<Table.Cell>{this.props.notifList[i]['frame.number']}</Table.Cell>)

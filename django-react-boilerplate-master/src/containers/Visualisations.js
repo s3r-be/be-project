@@ -10,8 +10,10 @@ import main from "../Images/Visualisations/main.png";
 import { connect } from "react-redux";
 import {
     Button,
-    Container,
-    Segment
+    Segment,
+    Header,
+    Icon,
+    Container
 } from "semantic-ui-react";
 
 
@@ -57,25 +59,33 @@ class Visualisations extends React.Component {
     }
     render() {
         return (
-            <Container>
-                <div>
-                    <Button style={{ size: "10" }} onClick={this.Disable}> Disable</Button>
-                    <h2 style={{ fontFamily: "Trebuchet MS", fontSize: "50px", color: "Grey", textAlign: "center" }}>Visualisations</h2>
-                </div>
+            <div style={{ marginLeft: '3em', marginRight: '3em' }}>
 
-                <Segment style={{ padding: "0.5em 0.1em" }} horizontal>
-                    <Button onClick={this.ModelComparison}>Model Comparison</Button>
-                    <Button onClick={this.ConfusionMatrix}>Confusion Matrix</Button>
-                    <Button onClick={this.Correction}>Correlation Matrix</Button>
-                    <Button onClick={this.WithOverProtocol}>Types of Protocol(Oversampled)</Button>
-                    <Button onClick={this.WithoutOverProtocol}>Types of Protocol</Button>
-                    <Button onClick={this.OAttackDis}>Types Of Attacks(Oversampled)</Button>
-                    <Button onClick={this.AttackDis}>Types Of Attacks</Button>
+                <Segment style={{ marginTop: '4em', textAlign: "center" }} vertical>
+                    <Header as='h3'>
+                        <Icon name='line graph' />Visualisations
+                    </Header>
                 </Segment>
-                <Segment>
-                    <img src={this.state.path} alt=""></img>
-                </Segment>
-            </Container >
+
+                <Container>
+                    <div>
+                        <Button style={{ size: "10" }} onClick={this.Disable}> Disable</Button>
+                    </div>
+
+                    <Segment style={{ padding: "0.5em 0.1em" }} horizontal>
+                        <Button onClick={this.ModelComparison}>Model Comparison</Button>
+                        <Button onClick={this.ConfusionMatrix}>Confusion Matrix</Button>
+                        <Button onClick={this.Correction}>Correlation Matrix</Button>
+                        <Button onClick={this.WithOverProtocol}>Types of Protocol(Oversampled)</Button>
+                        <Button onClick={this.WithoutOverProtocol}>Types of Protocol</Button>
+                        <Button onClick={this.OAttackDis}>Types Of Attacks(Oversampled)</Button>
+                        <Button onClick={this.AttackDis}>Types Of Attacks</Button>
+                    </Segment>
+                    <Segment>
+                        <img src={this.state.path} alt=""></img>
+                    </Segment>
+                </Container>
+            </div>
         );
     }
 }

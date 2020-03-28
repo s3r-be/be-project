@@ -7,7 +7,8 @@ import {
   Image,
   List,
   Menu,
-  Segment
+  Segment,
+  Icon
 } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -22,45 +23,45 @@ class CustomLayout extends React.Component {
         <Menu fixed="top" inverted>
           <Container>
             <Link to="/">
-              <Menu.Item header>Home</Menu.Item>
+              <Menu.Item header><Icon inverted name='home' /> Home</Menu.Item>
             </Link>
             {authenticated ? (
               <React.Fragment>
                 <Menu.Item header onClick={() => this.props.logout()}>
-                  Logout
+                  <Icon inverted name='log out' /> Logout
                 </Menu.Item>
                 <Link to="/networkLogs">
-                  <Menu.Item header>Network Logs</Menu.Item>
+                  <Menu.Item header><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
                 </Link>
                 <Link to="/dashboard">
-                  <Menu.Item header>Dashboard</Menu.Item>
+                  <Menu.Item header><Icon inverted name='dashboard' /> Dashboard</Menu.Item>
                 </Link>
                 <Link to="/visualisations">
-                  <Menu.Item header>Visualisations</Menu.Item>
+                  <Menu.Item header><Icon inverted name='line graph' /> Visualisations</Menu.Item>
                 </Link>
                 <Link to="/notifications">
-                  <Menu.Item header>Notifications</Menu.Item>
+                  <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
                 </Link>
               </React.Fragment>
             ) : (
                 <React.Fragment>
                   <Link to="/login">
-                    <Menu.Item header>Login</Menu.Item>
+                    <Menu.Item header><Icon inverted name='sign-in' /> Login</Menu.Item>
                   </Link>
                   <Link to="/signup">
-                    <Menu.Item header>Signup</Menu.Item>
+                    <Menu.Item header><Icon inverted name='signup' /> Signup</Menu.Item>
                   </Link>
                   <Link to="/networkLogs">
-                    <Menu.Item header>Network Logs</Menu.Item>
+                    <Menu.Item header><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
                   </Link>
                   <Link to="/dashboard">
-                    <Menu.Item header>Dashboard</Menu.Item>
+                    <Menu.Item header><Icon inverted name='dashboard' /> Dashboard</Menu.Item>
                   </Link>
                   <Link to="/visualisations">
-                    <Menu.Item header>Visualisations</Menu.Item>
+                    <Menu.Item header><Icon inverted name='line graph' /> Visualisations</Menu.Item>
                   </Link>
                   <Link to="/notifications">
-                    <Menu.Item header>Notifications</Menu.Item>
+                    <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
                   </Link>
                 </React.Fragment>
               )}

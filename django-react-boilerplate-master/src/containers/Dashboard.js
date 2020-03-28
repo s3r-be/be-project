@@ -3,6 +3,11 @@ import Background from '../Images/Dashboard/1.png';
 import img from '../Images/Dashboard/car.png';
 import { connect } from "react-redux";
 import axios from 'axios';
+import {
+    Segment,
+    Header,
+    Icon
+} from "semantic-ui-react";
 
 var sectionStyle = {
     width: "100%",
@@ -27,9 +32,9 @@ class Imgg extends React.Component {
         this.updateData();
         // add this for multiple requests
 
-        // this.interval = setInterval(() => {
-        //     this.updateData();
-        // }, 100);
+        this.interval = setInterval(() => {
+            this.updateData();
+        }, 100);
     }
 
     writearray = (d) => {
@@ -78,6 +83,13 @@ class Imgg extends React.Component {
     render() {
         return (
             <div id="sdf">
+
+                <Segment style={{ marginTop: '4em', textAlign: "center" }} vertical>
+                    <Header as='h3'>
+                        <Icon name='dashboard' />Dashboard
+                    </Header>
+                </Segment>
+
                 <div style={sectionStyle}>
                     <div >
                         <img src={img} alt="car" width="600" style={{ top: "500px", left: this.state.pos + "px", position: "relative" }} />
