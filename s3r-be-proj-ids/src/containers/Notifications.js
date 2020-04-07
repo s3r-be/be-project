@@ -5,15 +5,16 @@ import {
     Table,
     Header,
     Icon,
+    Statistic,
 } from "semantic-ui-react";
 
 class Notifications extends React.Component {
 
     componentDidUpdate() {
-        const notifList = this.props.notifList;
-        // console.log('notif list in notifications.js', notifList);
+        // console.log('attacks state in notifications.js', this.props.attackStats);
     }
 
+    // table to display attack notifications
     createTable = () => {
         let table = []
         let headers = [];
@@ -66,6 +67,37 @@ class Notifications extends React.Component {
                         <Icon name='bell' />Attack Notifications
                     </Header>
                 </Segment>
+
+                {/* attack statistics - display number of each attack */}
+                <Segment>
+                    <Statistic.Group widths='five'>
+                        <Statistic size='mini'>
+                            <Statistic.Value>{this.props.attackStats['Wrong Setup']}</Statistic.Value>
+                            <Statistic.Label>Wrong Setup</Statistic.Label>
+                        </Statistic>
+
+                        <Statistic size='mini'>
+                            <Statistic.Value>{this.props.attackStats['DDOS']}</Statistic.Value>
+                            <Statistic.Label>DDOS</Statistic.Label>
+
+                        </Statistic>
+                        <Statistic size='mini'>
+                            <Statistic.Value>{this.props.attackStats['Data Type Probing']}</Statistic.Value>
+                            <Statistic.Label>Data Type Probing</Statistic.Label>
+                        </Statistic>
+
+                        <Statistic size='mini'>
+                            <Statistic.Value>{this.props.attackStats['Scan Attack']}</Statistic.Value>
+                            <Statistic.Label>Scan Attack</Statistic.Label>
+                        </Statistic>
+
+                        <Statistic size='mini'>
+                            <Statistic.Value>{this.props.attackStats['MITM']}</Statistic.Value>
+                            <Statistic.Label>MITM</Statistic.Label>
+                        </Statistic>
+                    </Statistic.Group>
+                </Segment>
+
                 <Table celled>
                     {this.createTable()}
                 </Table>

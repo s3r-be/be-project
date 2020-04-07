@@ -10,7 +10,7 @@ import {
 class NetworkLogs extends React.Component {
 
     componentDidUpdate() {
-        const netLogs = this.props.netLogs;
+        // const netLogs = this.props.netLogs;
         // console.log('net Logs in NetworkLogs.js', netLogs);
     }
 

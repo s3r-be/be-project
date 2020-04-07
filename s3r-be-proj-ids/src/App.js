@@ -15,8 +15,18 @@ class App extends Component {
     this.attackNotif = props.attackNotif;
     this.chatSocket = props.chatSocket;
     this.state = {
+      // list of all the attack notifications
       notifList: [],
-      netLogs: []
+      // list of all the network logs
+      netLogs: [],
+      // dictionary to maintain the number of each attack
+      attackStats: {
+        'Wrong Setup': 0,
+        'DDOS': 0,
+        'Data Type Probing': 0,
+        'Scan Attack': 0,
+        'MITM': 0
+      }
     }
   }
 
@@ -53,7 +63,9 @@ class App extends Component {
       });
       // appending received message to state
       this.setState(prevState => ({
-        notifList: [...prevState.notifList, data]
+        notifList: [...prevState.notifList, data],
+        // set the stats of current attack type to one more than previous (increment count)
+        attackStats: { ...prevState.attackStats, [data['attack.type']]: prevState.attackStats[data['attack.type']] + 1 }
       }))
       // console.log('attack notif: ' + data.message);
       // console.log('state notif list: ', this.state.notifList);
@@ -92,7 +104,7 @@ class App extends Component {
     return (
       <Router>
         <CustomLayout>
-          <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList} />
+          <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList} attackStats={this.state.attackStats} />
         </CustomLayout>
       </Router>
     );
