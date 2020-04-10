@@ -68,24 +68,23 @@ class Visualisations extends React.Component {
                 </Segment>
 
                 <Container>
-                    <div>
-                        <Button style={{ size: "10" }} onClick={this.Disable}> Disable</Button>
-                    </div>
-
-                    <Segment style={{ padding: "0.5em 0.1em" }} horizontal>
-                        <Button onClick={this.ModelComparison}>Model Comparison</Button>
-                        <Button onClick={this.ConfusionMatrix}>Confusion Matrix</Button>
-                        <Button onClick={this.Correction}>Correlation Matrix</Button>
-                        <Button onClick={this.WithOverProtocol}>Types of Protocol(Oversampled)</Button>
-                        <Button onClick={this.WithoutOverProtocol}>Types of Protocol</Button>
-                        <Button onClick={this.OAttackDis}>Types Of Attacks(Oversampled)</Button>
-                        <Button onClick={this.AttackDis}>Types Of Attacks</Button>
+                    <Segment size="massive" style={{ padding: "0.5em 0.1em" }} horizontal>
+                        <Button.Group>
+                            <Button size="mini" color='black' onClick={this.ModelComparison}>Model Comparison</Button>
+                            <Button size="mini" color='black' onClick={this.ConfusionMatrix}>Confusion Matrix</Button>
+                            <Button size="mini" color='black' onClick={this.Correction}>Correlation Matrix</Button>
+                            <Button size="mini" color='black' onClick={this.WithOverProtocol}>Protocol(Oversampled)</Button>
+                            <Button size="mini" color='black' onClick={this.WithoutOverProtocol}>Protocol</Button>
+                            <Button size="mini" color='black' onClick={this.OAttackDis}>Attacks(Oversampled)</Button>
+                            <Button size="mini" color='black' onClick={this.AttackDis}>Attacks</Button>
+                            <Button size="mini" onClick={this.Disable}> Disable</Button>
+                        </Button.Group>
                     </Segment>
-                    <Segment>
-                        <img src={this.state.path} alt=""></img>
+                    <Segment style={{ display: 'flex', justifyContent: 'center' }}>
+                        <img src={this.state.path} alt="" width="80%" height="550px" ></img>
                     </Segment>
                 </Container>
-            </div>
+            </div >
         );
     }
 }
