@@ -35,4 +35,5 @@ The project contains a full stack web app created with React front end and Djang
 
 11. The shell script for tshark is in the home folder of s3r-be-proj-ids.
 Before you run it, you'll have to replace s3rbeproj with your computer's password.
-> home/tshark_shell_script.sh
+> cd home
+> ./tshark_shell_script.sh
