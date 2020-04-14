@@ -29,6 +29,10 @@ const attackNotif = new WebSocket(
   'ws://' + window.location.host +
   '/ws/attackNotif/');
 
+// create socket for notification
+const phpSocket = new WebSocket(
+  'ws://' + "0.0.0.0:12345");
+
 // once chatSocket web socket has opened
 chatSocket.onopen = (e) => {
   // send message to initiate network log data transfer
@@ -41,7 +45,7 @@ chatSocket.onopen = (e) => {
 const app = (
   <Provider store={store}>
     <ReactNotification />
-    <App chatSocket={chatSocket} attackNotif={attackNotif} />
+    <App chatSocket={chatSocket} attackNotif={attackNotif} phpSocket={phpSocket} />
   </Provider>
 );
 

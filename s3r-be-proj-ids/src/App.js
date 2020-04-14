@@ -104,7 +104,7 @@ class App extends Component {
     return (
       <Router>
         <CustomLayout>
-          <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList} attackStats={this.state.attackStats} />
+          <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList} attackStats={this.state.attackStats} phpSocket={this.props.phpSocket} />
         </CustomLayout>
       </Router>
     );

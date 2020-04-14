@@ -26,21 +26,70 @@ class Imgg extends React.Component {
         this.state = {
             pos: 0
         }
+
+        // get socket for notification
+        this.phpSocket = this.props.phpSocket;
+    }
+
+    async sleep() {
+        await new Promise(r => setTimeout(r, 1000));
     }
 
     componentDidMount() {
-        this.updateData();
-        // add this for multiple requests
 
-        this.interval = setInterval(() => {
-            this.updateData();
-        }, 100);
+        this.phpSocket.onopen = (e) => {
+            // send message to initiate notification data transfer
+            this.phpSocket.send(JSON.stringify({
+                'message': 'initiate node data transfer'
+            }))
+        }
+
+        this.phpSocket.onmessage = (e) => {
+            //console.log(e.data);
+            // var data = JSON.parse(e.data);
+            // appending received message to state
+            this.writearray(e.data);
+            //  console.log(data);
+            // console.log('state netLogs: ', this.state.netLogs);
+        };
+
+        // on closing web socket
+        this.phpSocket.onclose = (e) => {
+            console.error('Php socket closed unexpectedly');
+
+            // setTimeout(function () {
+            //     console.log('Reconnecting to websocket: ' + '0.0.0.0:12345');
+            //     this.phpSocket = new WebSocket(
+            //         'ws://' + "0.0.0.0:12345");
+            //     console.log(this.phpSocket);
+            // }, 5000);
+
+            // for (let count = 0; count < 15 && this.phpSocket.readyState !== WebSocket.OPEN; count++) {
+            //     // this.sleep();
+
+            //     // console.log(this.phpSocket);
+            //     setTimeout(function () {
+            //         console.log('Reconnecting to websocket: ' + '0.0.0.0:12345 - ' + count);
+            //         this.phpSocket = new WebSocket(
+            //             'ws://' + "0.0.0.0:12345");
+            //     }, 2000);
+
+            // }
+            // if (this.phpSocket.readyState === WebSocket.OPEN) {
+            //     this.phpSocket.send(JSON.stringify({
+            //         'message': 'initiate node data transfer'
+            //     }))
+            // } else {
+            //     console.error('Max reconnection attempt reached.');
+            // }
+            // console.log(this.phpSocket);
+        };
     }
 
     writearray = (d) => {
 
         d = d.split('\n', 10);
-        // console.log(d);
+        //console.log(d);
         d = Number(d[0]);
         // console.log('data', d, 'type of data ', typeof d, 'smoothingWindow', smoothingWindow);
         // append to array
@@ -57,9 +106,10 @@ class Imgg extends React.Component {
         movingAvg.forEach(element => {
             tempAvg += element;
         });
+        // console.log("Sum"+tempAvg);
         // get average
         tempAvg /= movingAvg.length;
-
+        // console.log("Avg"+tempAvg);
         // condition for tempAvg going beyond threshold
         if (tempAvg > 1000) {
             tempAvg = tempAvg % 1000;
