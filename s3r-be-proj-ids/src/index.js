@@ -31,7 +31,7 @@ const attackNotif = new WebSocket(
 
 // create socket for notification
 const phpSocket = new WebSocket(
-  'ws://' + "0.0.0.0:12345");
+  "ws://0.0.0.0:12345");
 
 // once chatSocket web socket has opened
 chatSocket.onopen = (e) => {

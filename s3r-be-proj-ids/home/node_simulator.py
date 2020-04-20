@@ -5,9 +5,9 @@ import time
 # api-endpoint
 URL = 'http://localhost/ids/server.php'
 
-for i in range(0, 10000, 25):
+for i in range(0, 10000, 20):
     # data to be sent
-    data = i
+    data = i%500
 
     # defining a params dict for the parameters to be sent to the API
     PARAMS = {'data': data}

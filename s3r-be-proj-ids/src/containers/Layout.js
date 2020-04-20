@@ -27,9 +27,6 @@ class CustomLayout extends React.Component {
             </Link>
             {authenticated ? (
               <React.Fragment>
-                <Menu.Item header onClick={() => this.props.logout()}>
-                  <Icon inverted name='log out' /> Logout
-                </Menu.Item>
                 <Link to="/networkLogs">
                   <Menu.Item header><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
                 </Link>
@@ -42,6 +39,9 @@ class CustomLayout extends React.Component {
                 <Link to="/notifications">
                   <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
                 </Link>
+                <Menu.Item header onClick={() => this.props.logout()}>
+                  <Icon inverted name='log out' /> Logout
+                </Menu.Item>
               </React.Fragment>
             ) : (
                 <React.Fragment>
@@ -51,7 +51,7 @@ class CustomLayout extends React.Component {
                   <Link to="/signup">
                     <Menu.Item header><Icon inverted name='signup' /> Signup</Menu.Item>
                   </Link>
-                  <Link to="/networkLogs">
+                  {/* <Link to="/networkLogs">
                     <Menu.Item header><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
                   </Link>
                   <Link to="/dashboard">
@@ -62,7 +62,7 @@ class CustomLayout extends React.Component {
                   </Link>
                   <Link to="/notifications">
                     <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
-                  </Link>
+                  </Link> */}
                 </React.Fragment>
               )}
           </Container>
