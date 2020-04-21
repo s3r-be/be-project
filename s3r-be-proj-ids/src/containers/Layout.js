@@ -4,7 +4,7 @@ import {
   Divider,
   Grid,
   Header,
-  Image,
+  // Image,
   List,
   Menu,
   Segment,
@@ -39,9 +39,11 @@ class CustomLayout extends React.Component {
                 <Link to="/notifications">
                   <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
                 </Link>
-                <Menu.Item header onClick={() => this.props.logout()}>
-                  <Icon inverted name='log out' /> Logout
-                </Menu.Item>
+                <Link to="/">
+                  <Menu.Item header onClick={() => this.props.logout()}>
+                    <Icon inverted name='log out' /> Logout
+                  </Menu.Item>
+                </Link>
               </React.Fragment>
             ) : (
                 <React.Fragment>
@@ -78,55 +80,39 @@ class CustomLayout extends React.Component {
           <Container textAlign="center">
             <Grid divided inverted stackable>
               <Grid.Column width={3}>
-                <Header inverted as="h4" content="Group 1" />
+                <Header inverted as="h4" content="Group Members" />
                 <List link inverted>
-                  <List.Item as="a">Link One</List.Item>
-                  <List.Item as="a">Link Two</List.Item>
-                  <List.Item as="a">Link Three</List.Item>
-                  <List.Item as="a">Link Four</List.Item>
+                  <List.Item as="a">Shruti Houji</List.Item>
+                  <List.Item as="a">Rhishabh Hattarki</List.Item>
+                  <List.Item as="a">Sahil Dixit</List.Item>
+                  <List.Item as="a">Sanika Patil</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column width={3}>
-                <Header inverted as="h4" content="Group 2" />
+                <Header inverted as="h4" content="PRN Number" />
                 <List link inverted>
-                  <List.Item as="a">Link One</List.Item>
-                  <List.Item as="a">Link Two</List.Item>
-                  <List.Item as="a">Link Three</List.Item>
-                  <List.Item as="a">Link Four</List.Item>
+                  <List.Item as="a">71707035C</List.Item>
+                  <List.Item as="a">71707027B</List.Item>
+                  <List.Item as="a">71706924K</List.Item>
+                  <List.Item as="a">71707451L</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column width={3}>
-                <Header inverted as="h4" content="Group 3" />
+                <Header inverted as="h4" content="Guide" />
                 <List link inverted>
-                  <List.Item as="a">Link One</List.Item>
-                  <List.Item as="a">Link Two</List.Item>
-                  <List.Item as="a">Link Three</List.Item>
-                  <List.Item as="a">Link Four</List.Item>
+                  <List.Item as="a">M. R. Dhage</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column width={7}>
-                <Header inverted as="h4" content="Footer Header" />
-                <p>
-                  Extra space for a call to action inside the footer that could
-                  help re-engage users.
-                </p>
+                <Header style={{ paddingTop: '3em' }} inverted as="h4" content="Anomaly Based Intrusion Detection System For IoT Networks Using Random Forest" />
               </Grid.Column>
             </Grid>
 
             <Divider inverted section />
-            <Image centered size="mini" src="/logo.png" />
+            {/* <Image centered size="mini" src="/logo.png" /> */}
             <List horizontal inverted divided link size="small">
-              <List.Item as="a" href="#">
-                Site Map
-              </List.Item>
-              <List.Item as="a" href="#">
-                Contact Us
-              </List.Item>
-              <List.Item as="a" href="#">
-                Terms and Conditions
-              </List.Item>
-              <List.Item as="a" href="#">
-                Privacy Policy
+              <List.Item as="a" href="https://github.com/s3r-be/be-project" target='_blank'>
+                Click here to check the code on Github
               </List.Item>
             </List>
           </Container>

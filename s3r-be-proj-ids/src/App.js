@@ -32,7 +32,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.onTryAutoSignup();
-
     // ----------------------------------------------------------------------- attack notif start
 
     // once attackNotif web socket has opened
@@ -45,22 +44,28 @@ class App extends Component {
 
     // on receiving message
     this.attackNotif.onmessage = (e) => {
+
       var data = JSON.parse(e.data);
-      // create notification for attack detected
-      store.addNotification({
-        title: " Attack detected! - " + data['attack.type'],
-        message: data['frame.time'],
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeIn"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 7000,
-          onScreen: true,
-          pauseOnHover: true
-        }
-      });
+
+      // create notifications only when authenticated (logged in)
+      if (this.props.isAuthenticated) {
+        // create notification for attack detected
+        store.addNotification({
+          title: " Attack detected! - " + data['attack.type'],
+          message: data['frame.time'],
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 7000,
+            onScreen: true,
+            pauseOnHover: true
+          }
+        });
+      }
+
       // appending received message to state
       this.setState(prevState => ({
         notifList: [...prevState.notifList, data],
