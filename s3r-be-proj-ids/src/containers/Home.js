@@ -115,8 +115,6 @@ const HomepageLayout = () => (
           <Grid.Column floated="right" width={6}>
             <img
               alt='ids'
-              bordered
-              rounded
               size="large"
               src={ids}
             />
@@ -140,7 +138,7 @@ const HomepageLayout = () => (
           <Grid.Column style={{ paddingBottom: "2em", paddingTop: "2em", display: 'flex', justifyContent: 'center' }}>
 
             <Card align="center">
-              <img alt='ddos' src={ddos} wrapped ui={false} height="200" />
+              <img alt='ddos' src={ddos} height="200" />
               <Card.Content>
                 <Card.Header>DDOS ATTACK</Card.Header>
                 <Card.Description>
@@ -151,7 +149,7 @@ const HomepageLayout = () => (
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: "2em", paddingTop: "2em", display: 'flex', justifyContent: 'center' }}>
             <Card>
-              <img alt='dtype' src={dtype} wrapped ui={false} height="200" />
+              <img alt='dtype' src={dtype} height="200" />
               <Card.Content>
                 <Card.Header>DATA TYPE PROBING ATTACK</Card.Header>
                 <Card.Description>
@@ -163,7 +161,7 @@ const HomepageLayout = () => (
 
           <Grid.Column style={{ paddingBottom: "2em", paddingTop: "2em", display: 'flex', justifyContent: 'center' }}>
             <Card>
-              <img alt='scan' src={scan} wrapped ui={false} height="200" />
+              <img alt='scan' src={scan} height="200" />
               <Card.Content>
                 <Card.Header>SCAN ATTACK</Card.Header>
                 <Card.Description>
@@ -176,7 +174,7 @@ const HomepageLayout = () => (
 
           <Grid.Column style={{ paddingBottom: "2em", paddingTop: "2em", display: 'flex', justifyContent: 'center' }}>
             <Card>
-              <img alt='wrong' src={wrong} wrapped ui={false} height="200" />
+              <img alt='wrong' src={wrong} height="200" />
               <Card.Content>
                 <Card.Header>WRONG SETUP ATTACK</Card.Header>
                 <Card.Description>
@@ -188,7 +186,7 @@ const HomepageLayout = () => (
 
           <Grid.Column style={{ paddingBottom: "2em", paddingTop: "2em", display: 'flex', justifyContent: 'center' }}>
             <Card>
-              <img alt='mitm' src={mitm} wrapped ui={false} height="200" />
+              <img alt='mitm' src={mitm} height="200" />
               <Card.Content>
                 <Card.Header>MAN IN THE MIDDLE ATTACK</Card.Header>
                 <Card.Description>

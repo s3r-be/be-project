@@ -8,7 +8,6 @@ var BurglerAlerts_Log = "";
 var BurglerAlerts_Count = 0;
 var movingAvg = [];
 var smoothingWindow = 10;
-var movingArray = [];
 var threshold = 300;
 // var imgUrl;
 class Dashboard extends React.Component {
@@ -21,7 +20,8 @@ class Dashboard extends React.Component {
             open: false,                                                    //Used for alarm module. If true => motion detected within threshold
             time: new Date().toLocaleString(),
             pos_car: 0,
-            node_pos_car: 0
+            node_pos_car: 0,
+            burglar_distance: 0
         }
         this.phpSocket = this.props.phpSocket;
     }
@@ -39,6 +39,8 @@ class Dashboard extends React.Component {
         };
         this.phpSocket.onclose = (e) => {
             console.error('Php socket closed unexpectedly');
+            // connect to backup socket
+            // this.phpSocket = new WebSocket("ws://0.0.0.0:12344");
         };
     }
     ActiveCar = () => {                                                     //if activeItem = true => Car
@@ -74,22 +76,13 @@ class Dashboard extends React.Component {
         d = d.split('\n');
         d.splice(-1, 1);                                                     //to remove last element. As it is splitting using \n 1 extra empty element willl be added
         d = Number(d[d.length - 1]);                                          //because last element is the new incoming element
-        movingArray.push(d)                                                 // append to array
 
-        if (movingArray.length >= smoothingWindow) {
-            movingArray.shift();                                            // removes first value if length reaches smoothing window (eg 10)
-        }
-        var tempVar = 0;
-        movingArray.forEach(element => {
-            tempVar = element;
-        });
-
-        if (tempVar > 400) {
-            tempVar = 400;
+        if (d > 400) {
+            d = 400;
         }
         if (!this.state.activeItem) {
             this.setState({
-                node_pos_alarm: tempVar
+                node_pos_alarm: d
             });
         }
     }
@@ -130,12 +123,18 @@ class Dashboard extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.state.node_pos_alarm < threshold && this.state.node_pos_alarm !== prevState.node_pos_alarm) {
             this.changeState();
-            if (this.state.open !== prevState.open && this.state.open === true)  //when state.open goes from false to true means this is the first instance of movement detected within threshold. So print entry in Event Log only this one time.
-            {
-                this.writeLog("  Motion Detected at " + this.state.node_pos_alarm / 100 + " meters.\n");
-            }
-        }
+            // console.log('open: ' + this.state.open + ' prev open: ' + prevState.open);
 
+        }
+        if (this.state.open !== prevState.open && this.state.open === true)  //when state.open goes from false to true means this is the first instance of movement detected within threshold. So print entry in Event Log only this one time.
+        {
+            // console.log("  Motion Detected at " + this.state.node_pos_alarm / 100 + " meters.\n");
+            // set distance at which burglar was caught
+            this.setState({ burglar_distance: this.state.node_pos_alarm / 100 });
+            // set time at which burglar was caught
+            this.setState({ time: new Date().toLocaleString() });
+            this.writeLog("  Motion Detected at " + this.state.burglar_distance + " meters.\n");
+        }
     }
     render() {
         const { open } = this.state;
@@ -160,7 +159,7 @@ class Dashboard extends React.Component {
                 <Segment style={{ marginTop: '4em', textAlign: "center" }} vertical>
                     <Header as='h3'>
                         <Icon name='dashboard' />Dashboard
-                </Header>
+                    </Header>
                 </Segment>
 
 
@@ -184,7 +183,7 @@ class Dashboard extends React.Component {
                                 <div >
                                     <img src={img} alt="car" width="600" style={{ top: "650px", right: this.state.pos_car + 250 + "px", position: "absolute" }} />
                                 </div>
-                                <h1 style={{ 'background-color': '#FFFF00' }}>Position = {this.state.pos_car} Node Position = {this.state.node_pos_car}</h1>
+                                <h1 style={{ 'backgroundColor': '#FFFF00' }}>Position = {this.state.pos_car} Node Position = {this.state.node_pos_car}</h1>
                             </div>
 
                         </React.Fragment>
@@ -204,8 +203,8 @@ class Dashboard extends React.Component {
                                                 }}
                                             >
                                                 <Header>Intruder Alert</Header>
-                                                <p>The time is {Date().toLocaleString()}.</p>
-                                                <p>Movement detected at distance of {this.state.node_pos_alarm / 100} meters. </p>
+                                                <p>The time is {this.state.time}.</p>
+                                                <p>Movement detected at distance of {this.state.burglar_distance} meters. </p>
 
                                                 <Button
                                                     content='Reset'
@@ -240,7 +239,7 @@ class Dashboard extends React.Component {
                                             </div>
                                         </Grid.Column>
                                     </Grid>
-                                    <h1 style={{ 'background-color': '#FFFF00' }}> Node Position = {this.state.node_pos_alarm}</h1>
+                                    <h1 style={{ 'backgroundColor': '#FFFF00' }}> Node Position = {this.state.node_pos_alarm}</h1>
                                 </div>
                             </React.Fragment>
                             //......................................................End of Alarm module..................................

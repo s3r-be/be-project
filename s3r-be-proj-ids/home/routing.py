@@ -14,7 +14,9 @@ application = ProtocolTypeRouter({
                 re_path(r'ws/chat/(?P<room_name>\w+)/$',
                         consumers.ChatConsumer),
                 # path to notification socket
-                re_path(r'ws/attackNotif/$', consumers.attackNotif)
+                re_path(r'ws/attackNotif/$', consumers.attackNotif),
+                # path to php socket
+                re_path(r'ws/phpSocket/$', consumers.phpSocket)
             ]
         )
     ),

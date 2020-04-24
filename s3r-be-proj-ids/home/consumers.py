@@ -5,6 +5,7 @@ import os
 import pickle
 import sklearn
 import pandas as pd
+import requests
 
 # specify file name of machine learning model - pickle file
 filename = 'home/model2.txt'
@@ -231,3 +232,24 @@ class attackNotif(WebsocketConsumer):
                         prev_prediction = prediction
 
 # --------------------------------------------------------------------------------------- end of attack notif
+
+
+# --------------------------------------------------------------------------------------- start of php socket
+
+class phpSocket(WebsocketConsumer):
+
+    def connect(self):
+        self.accept()
+
+    def disconnect(self, close_code):
+        pass
+
+    # receive request and start a loop to send node data back
+    def receive(self, text_data):
+        URL = 'http://localhost/ids/datastorage.txt'
+        while(1):
+            r = requests.get(url=URL)
+            self.send(r.text)
+            time.sleep(0.2)
+
+# --------------------------------------------------------------------------------------- end of php socket

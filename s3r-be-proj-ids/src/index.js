@@ -7,7 +7,6 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-
 import authReducer from "./store/reducers/auth";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -31,7 +30,8 @@ const attackNotif = new WebSocket(
 
 // create socket for notification
 const phpSocket = new WebSocket(
-  "ws://0.0.0.0:12345");
+  'ws://' + window.location.host +
+  '/ws/phpSocket/');
 
 // once chatSocket web socket has opened
 chatSocket.onopen = (e) => {
