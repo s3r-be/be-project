@@ -27,12 +27,6 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-
-        this.phpSocket.onopen = (e) => {
-            this.phpSocket.send(JSON.stringify({                            // send message to initiate notification data transfer
-                'message': 'initiate node data transfer'
-            }))
-        }
         this.phpSocket.onmessage = (e) => {
             this.writearray_alarm(e.data);
             this.writearray_car(e.data);

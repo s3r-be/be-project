@@ -41,6 +41,12 @@ chatSocket.onopen = (e) => {
   }))
 }
 
+phpSocket.onopen = (e) => {
+  phpSocket.send(JSON.stringify({                            // send message to initiate notification data transfer
+    'message': 'initiate node data transfer'
+  }))
+}
+
 // pass sockets as props - so only one instance created here is maintained
 const app = (
   <Provider store={store}>
