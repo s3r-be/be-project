@@ -5,9 +5,9 @@ import time
 # api-endpoint
 URL = 'http://localhost/ids/server.php'
 
-for i in range(0, 10000, 20):
+for i in range(0, 10000, 2):
     # data to be sent
-    data = i%500
+    data = i % 500
 
     # defining a params dict for the parameters to be sent to the API
     PARAMS = {'data': data}
@@ -16,4 +16,4 @@ for i in range(0, 10000, 20):
     r = requests.get(url=URL, params=PARAMS)
     print('sent data: ', data, '| response code: ', r)
 
-    time.sleep(0.2)
+    time.sleep(0.1)

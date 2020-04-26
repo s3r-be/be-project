@@ -250,6 +250,6 @@ class phpSocket(WebsocketConsumer):
         while(1):
             r = requests.get(url=URL)
             self.send(r.text)
-            time.sleep(0.2)
+            time.sleep(0.1)
 
 # --------------------------------------------------------------------------------------- end of php socket
