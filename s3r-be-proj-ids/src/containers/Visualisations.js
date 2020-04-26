@@ -68,7 +68,7 @@ class Visualisations extends React.Component {
                 </Segment>
 
                 <Container>
-                    <Segment size="massive" style={{ padding: "0.5em 0.1em" }} horizontal>
+                    <Segment size="massive" style={{ padding: "0.5em 0.1em" }} horizontal='true'>
                         <Button.Group>
                             <Button size="mini" color='black' onClick={this.ModelComparison}>Model Comparison</Button>
                             <Button size="mini" color='black' onClick={this.ConfusionMatrix}>Confusion Matrix</Button>

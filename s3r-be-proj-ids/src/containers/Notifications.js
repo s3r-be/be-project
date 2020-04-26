@@ -20,21 +20,21 @@ class Notifications extends React.Component {
         let headers = [];
 
         // add headers to the table
-        headers.push(<Table.HeaderCell>Attack Type</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Frame Number</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Frame Time</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Frame Length</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Mac Source</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Mac Dest</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>IP Source</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>IP Dest</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>IP Protocol</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>IP Length</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>TCP Length</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>TCP Source Port</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>TCP Dest Port</Table.HeaderCell>);
-        headers.push(<Table.HeaderCell>Info</Table.HeaderCell>);
-        table.push(<Table.Header><Table.Row>{headers}</Table.Row></Table.Header>);
+        headers.push(<Table.HeaderCell key='Attack Type'>Attack Type</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Frame Number'>Frame Number</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Frame Time'>Frame Time</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Frame Length'>Frame Length</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Mac Source'>Mac Source</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Mac Dest'>Mac Dest</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='IP Source'>IP Source</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='IP Dest'>IP Dest</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='IP Protocol'>IP Protocol</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='IP Length'>IP Length</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='TCP Length'>TCP Length</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='TCP Source Port'>TCP Source Port</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='TCP Dest Port'>TCP Dest Port</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Info'>Info</Table.HeaderCell>);
+        table.push(<Table.Header key='header'><Table.Row>{headers}</Table.Row></Table.Header>);
 
         // Outer loop to create parent
         for (let i = this.props.notifList.length - 1; i >= 0; i--) {

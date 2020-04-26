@@ -34,12 +34,6 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-
-        this.phpSocket.onopen = (e) => {
-            this.phpSocket.send(JSON.stringify({                            // send message to initiate notification data transfer
-                'message': 'initiate node data transfer'
-            }))
-        }
         this.phpSocket.onmessage = (e) => {
             this.writearray_alarm(e.data);
             this.writearray_car(e.data);
@@ -79,9 +73,9 @@ class Dashboard extends React.Component {
         d = d.split('\n');
         d.splice(-1, 1);                                                     //to remove last element. As it is splitting using \n 1 extra empty element willl be added
         d = Number(d[d.length - 1]);                                         //because last element is the new incoming element
-        if(isNaN(d))                                                         //handles non-numeric data
+        if (isNaN(d))                                                         //handles non-numeric data
         {
-            d=0;
+            d = 0;
         }
         if (d > 400) {
             d = 400;
@@ -98,9 +92,9 @@ class Dashboard extends React.Component {
         d1 = d1.split('\n');
         d1.splice(-1, 1);                                                 //to remove last element. As it is splitting using \n 1 extra empty element willl be added
         d1 = Number(d1[d1.length - 1]);                                    //because last element is the new incoming element
-        if(isNaN(d1))                                                    //handles non-numeric data
+        if (isNaN(d1))                                                    //handles non-numeric data
         {
-            d1=0;
+            d1 = 0;
         }
         movingAvg.push(d1)                                               // append to array
 
@@ -148,10 +142,10 @@ class Dashboard extends React.Component {
         const { open } = this.state;
         var imgUrl = this.state.activeItem ? Background_car : Background_alarm;      //if activeItem = true => Car =>Car background
         var add_border = this.state.activeItem ? null : (this.state.open ? "inset 0px 0px 2px 80px red" : null);  //if open = true => movement detected => add border
-        var add_burgler = this.state.activeItem ? null : (this.state.open ? burgler_img : null); 
-        var car_sound = this.state.node_pos_car > 100 ? null : (this.state.node_pos_car > 50 ? carsound1 : (this.state.node_pos_car > 10 ? carsound2 : carsound3)) ;
+        var add_burgler = this.state.activeItem ? null : (this.state.open ? burgler_img : null);
+        var car_sound = this.state.node_pos_car > 100 ? null : (this.state.node_pos_car > 50 ? carsound1 : (this.state.node_pos_car > 10 ? carsound2 : carsound3));
 
-        
+
         var sectionStyle = {
             width: "100%",
             height: "750px",
@@ -190,13 +184,13 @@ class Dashboard extends React.Component {
                             <div style={sectionStyle}>
                                 <div >
                                     <img src={img} alt="car" width="450" style={{ top: "593px", right: this.state.pos_car + 250 + "px", position: "absolute" }} />
-                                    <p style={{ color : 'white' , fontSize : '55px' , top : "220px" , left : "60px" , position: "absolute"}}>  {(this.state.node_pos_car/100).toFixed(2)} m</p>
+                                    <p style={{ color: 'white', fontSize: '55px', top: "220px", left: "60px", position: "absolute" }}>  {(this.state.node_pos_car / 100).toFixed(2)} m</p>
                                     <Sound
-                                    url={car_sound}
-                                    playStatus={Sound.status.PLAYING}
-                                    onLoading={this.handleSongLoading}
-                                    onPlaying={this.handleSongPlaying}
-                                    onFinishedPlaying={this.handleSongFinishedPlaying}
+                                        url={car_sound}
+                                        playStatus={Sound.status.PLAYING}
+                                        onLoading={this.handleSongLoading}
+                                        onPlaying={this.handleSongPlaying}
+                                        onFinishedPlaying={this.handleSongFinishedPlaying}
                                     />
                                 </div>
                             </div>
@@ -221,11 +215,11 @@ class Dashboard extends React.Component {
                                                 <p>The time is {this.state.time}.</p>
                                                 <p>Movement detected at distance of {this.state.burglar_distance} meters. </p>
                                                 <Sound
-                                                url={burglersound}
-                                                playStatus={Sound.status.PLAYING}
-                                                onLoading={this.handleSongLoading}
-                                                onPlaying={this.handleSongPlaying}
-                                                onFinishedPlaying={this.handleSongFinishedPlaying}
+                                                    url={burglersound}
+                                                    playStatus={Sound.status.PLAYING}
+                                                    onLoading={this.handleSongLoading}
+                                                    onPlaying={this.handleSongPlaying}
+                                                    onFinishedPlaying={this.handleSongFinishedPlaying}
                                                 />
                                                 <Button
                                                     content='Reset'
@@ -257,8 +251,7 @@ class Dashboard extends React.Component {
 
                                         <Grid.Column style={{ width: '70%' }}>
                                             <div style={sectionStyle}>
-                                                <img src={add_burgler} width="200" style={{ top: "365px", right: "400px", position: "absolute" }} />
-
+                                                <img src={add_burgler} width="200" style={{ top: "365px", right: "400px", position: "absolute" }} alt='' />
                                             </div>
                                         </Grid.Column>
                                     </Grid>
