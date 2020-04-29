@@ -16,8 +16,33 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../store/actions/auth";
 import { SoundContext } from "../SoundContext";
+import axios from 'axios';
+import { store } from 'react-notifications-component';
 
 class CustomLayout extends React.Component {
+
+  // call api from django to restart tshark script
+  restart_tshark = () => {
+    axios.get(`http://` + window.location.host + `/api-restart-tshark/`)
+      .then(res => {
+        console.log('Restarted Tshark');
+      })
+    // create notification for tshark script restart
+    store.addNotification({
+      title: "Restarting Tshark script.",
+      message: "Please wait till script restarts. Refresh browser if logs don't update.",
+      type: "default",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 7000,
+        onScreen: true,
+        pauseOnHover: true
+      }
+    });
+  }
 
   trigger = (
     <span>
@@ -45,7 +70,7 @@ class CustomLayout extends React.Component {
                 ></Radio>
               &nbsp;&nbsp;&nbsp;
             </Dropdown.Item>
-              {/* dashboard sound */}
+              {/* dashboard sound setting */}
               <Dropdown.Item>
                 <span style={{ display: 'inline-block', paddingBottom: '1em' }}>Dashboard sound&nbsp;&nbsp;</span>
                 <Radio
@@ -91,12 +116,16 @@ class CustomLayout extends React.Component {
                   </Link>
 
                   <Menu.Menu position='right'>
+                    {/* tshark restart */}
+                    <Menu.Item header onClick={() => this.restart_tshark()}><Icon inverted name='redo' /> Tshark</Menu.Item>
+                    {/* settings panel */}
+                    <this.settingsMenu></this.settingsMenu>
+                    {/* logout */}
                     <Link to="/">
                       <Menu.Item header onClick={() => this.props.logout()}>
                         <Icon inverted name='log out' /> Logout
                       </Menu.Item>
                     </Link>
-                    <this.settingsMenu></this.settingsMenu>
                   </Menu.Menu>
 
                 </React.Fragment>

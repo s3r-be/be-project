@@ -8,6 +8,7 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
+    path('api-restart-tshark/', views.restart_tshark),
     # re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
     re_path(r'^.*', views.index),
     # path('', views.index, name='index'),
