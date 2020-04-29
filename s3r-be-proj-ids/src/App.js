@@ -9,6 +9,7 @@ import { store } from 'react-notifications-component';
 import Sound from 'react-sound';
 import attack_sound from './sounds/attack notif 1.mp3';
 import scan_sound from './sounds/attack notif 2.mp3';
+import { SoundContext } from './SoundContext';
 
 class App extends Component {
 
@@ -32,8 +33,25 @@ class App extends Component {
       },
       // used to set off notification sound
       play_attack_rcvd: false,
-      play_scan_rcvd: false
+      play_scan_rcvd: false,
+      // used to control toggle of sound setting
+      notifSoundOn: true,
+      dashSoundOn: true,
+      toggleNotifSound: this.toggleNotifSound,
+      toggleDashSound: this.toggleDashSound
     }
+  }
+
+  toggleNotifSound = () => {
+    this.setState((prevState) => ({ notifSoundOn: !prevState.notifSoundOn }), () => {
+      // console.log('toggled notif sound- ' + this.state.notifSoundOn);
+    })
+  }
+
+  toggleDashSound = () => {
+    this.setState((prevState) => ({ dashSoundOn: !prevState.dashSoundOn }), () => {
+      // console.log('toggled dash sound- ' + this.state.dashSoundOn);
+    })
   }
 
   componentDidMount() {
@@ -142,29 +160,42 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.play_attack_rcvd ?
-          (<Sound
-            url={attack_sound}
-            playStatus={Sound.status.PLAYING}
-            onLoading={this.handleSongLoading}
-            onPlaying={this.handleSongPlaying}
-            onFinishedPlaying={this.handleSongFinishedPlaying}
-          />) : (<div></div>)
-        }
-        {this.state.play_scan_rcvd ?
-          (<Sound
-            url={scan_sound}
-            playStatus={Sound.status.PLAYING}
-            onLoading={this.handleSongLoading}
-            onPlaying={this.handleSongPlaying}
-            onFinishedPlaying={this.handleSongFinishedPlaying}
-          />) : (<div></div>)
-        }
-        <Router>
-          <CustomLayout>
-            <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList} attackStats={this.state.attackStats} phpSocket={this.props.phpSocket} />
-          </CustomLayout>
-        </Router>
+        {/* play sound only if notifSoundOn from settings tab is active (true) */}
+        {this.state.notifSoundOn ? (
+          <React.Fragment>
+            {/* sound for active attacks */}
+            {this.state.play_attack_rcvd ?
+              (<Sound
+                url={attack_sound}
+                playStatus={Sound.status.PLAYING}
+                onLoading={this.handleSongLoading}
+                onPlaying={this.handleSongPlaying}
+                onFinishedPlaying={this.handleSongFinishedPlaying}
+              />) : (<div></div>)
+            }
+            {/* sound for passive attacks */}
+            {this.state.play_scan_rcvd ?
+              (<Sound
+                url={scan_sound}
+                playStatus={Sound.status.PLAYING}
+                onLoading={this.handleSongLoading}
+                onPlaying={this.handleSongPlaying}
+                onFinishedPlaying={this.handleSongFinishedPlaying}
+              />) : (<div></div>)
+            }
+          </React.Fragment>
+        ) : null}
+
+        {/* using sound context to pass sound variables and functions 
+        to enable/disable sound for notif and dash from settings tab */}
+        <SoundContext.Provider value={this.state}>
+          <Router>
+            <CustomLayout>
+              <BaseRouter netLogs={this.state.netLogs} notifList={this.state.notifList}
+                attackStats={this.state.attackStats} phpSocket={this.props.phpSocket} />
+            </CustomLayout>
+          </Router>
+        </SoundContext.Provider>
       </React.Fragment>
     );
   }

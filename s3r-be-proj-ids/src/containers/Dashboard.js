@@ -10,6 +10,7 @@ import burglersound from '../sounds/burgler.mp3';
 import carsound1 from '../sounds/car rev 1.mp3';
 import carsound2 from '../sounds/car rev 2.mp3';
 import carsound3 from '../sounds/car rev 3.mp3';
+import { SoundContext } from "../SoundContext";
 
 var BurglerAlerts_Log = "";
 var BurglerAlerts_Count = 0;
@@ -185,13 +186,21 @@ class Dashboard extends React.Component {
                                 <div >
                                     <img src={img} alt="car" width="450" style={{ top: "593px", right: this.state.pos_car + 250 + "px", position: "absolute" }} />
                                     <p style={{ color: 'white', fontSize: '55px', top: "220px", left: "60px", position: "absolute" }}>  {(this.state.node_pos_car / 100).toFixed(2)} m</p>
-                                    <Sound
-                                        url={car_sound}
-                                        playStatus={Sound.status.PLAYING}
-                                        onLoading={this.handleSongLoading}
-                                        onPlaying={this.handleSongPlaying}
-                                        onFinishedPlaying={this.handleSongFinishedPlaying}
-                                    />
+                                    <SoundContext.Consumer>
+                                        {({ dashSoundOn }) => (
+                                            <React.Fragment>
+                                                {dashSoundOn ? (
+                                                    <Sound
+                                                        url={car_sound}
+                                                        playStatus={Sound.status.PLAYING}
+                                                        onLoading={this.handleSongLoading}
+                                                        onPlaying={this.handleSongPlaying}
+                                                        onFinishedPlaying={this.handleSongFinishedPlaying}
+                                                    />
+                                                ) : null}
+                                            </React.Fragment>
+                                        )}
+                                    </SoundContext.Consumer>
                                 </div>
                             </div>
 
@@ -238,8 +247,8 @@ class Dashboard extends React.Component {
                                                         onClick={this.clearLog}
                                                     >
                                                         Clear
-                            </Button>
-                            Event Log <Label circular>{BurglerAlerts_Count}</Label>
+                                                    </Button>
+                                                Event Log <Label circular>{BurglerAlerts_Count}</Label>
                                                 </Segment>
                                                 <Segment secondary>
                                                     <pre>
