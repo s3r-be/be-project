@@ -70,14 +70,14 @@ class Visualisations extends React.Component {
                 <Container>
                     <Segment size="massive" style={{ padding: "0.5em 0.1em" }} horizontal='true'>
                         <Button.Group>
-                            <Button size="mini" color='black' onClick={this.ModelComparison}>Model Comparison</Button>
-                            <Button size="mini" color='black' onClick={this.ConfusionMatrix}>Confusion Matrix</Button>
-                            <Button size="mini" color='black' onClick={this.Correction}>Correlation Matrix</Button>
-                            <Button size="mini" color='black' onClick={this.WithOverProtocol}>Protocol(Oversampled)</Button>
-                            <Button size="mini" color='black' onClick={this.WithoutOverProtocol}>Protocol</Button>
-                            <Button size="mini" color='black' onClick={this.OAttackDis}>Attacks(Oversampled)</Button>
-                            <Button size="mini" color='black' onClick={this.AttackDis}>Attacks</Button>
-                            <Button size="mini" onClick={this.Disable}> Disable</Button>
+                            <Button size="mini" color='black' id='ModelComparison' onClick={this.ModelComparison}>Model Comparison</Button>
+                            <Button size="mini" color='black' id='ConfusionMatrix' onClick={this.ConfusionMatrix}>Confusion Matrix</Button>
+                            <Button size="mini" color='black' id='Correction' onClick={this.Correction}>Correlation Matrix</Button>
+                            <Button size="mini" color='black' id='WithOverProtocol' onClick={this.WithOverProtocol}>Protocol(Oversampled)</Button>
+                            <Button size="mini" color='black' id='WithoutOverProtocol' onClick={this.WithoutOverProtocol}>Protocol</Button>
+                            <Button size="mini" color='black' id='OAttackDis' onClick={this.OAttackDis}>Attacks(Oversampled)</Button>
+                            <Button size="mini" color='black' id='AttackDis' onClick={this.AttackDis}>Attacks</Button>
+                            <Button size="mini" id='Disable' onClick={this.Disable}> Disable</Button>
                         </Button.Group>
                     </Segment>
                     <Segment style={{ display: 'flex', justifyContent: 'center' }}>

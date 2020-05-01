@@ -57,12 +57,13 @@ class CustomLayout extends React.Component {
       // user consumer of sound context to access globar variables notifSoundOn, dashSoundOn, toggleNotifSound, toggleDashSound
       <SoundContext.Consumer>
         {({ notifSoundOn, dashSoundOn, toggleNotifSound, toggleDashSound }) => (
-          <Dropdown item={true} trigger={this.trigger} multiple={true} style={{ marginLeft: 'auto', marginRight: 0 }}>
+          <Dropdown item={true} trigger={this.trigger} multiple={true} style={{ marginLeft: 'auto', marginRight: 0 }} id='ddown_item_settings'>
             <Dropdown.Menu>
               {/* notifications sound setting */}
               <Dropdown.Item>
                 <span style={{ display: 'inline-block', paddingBottom: '1em' }}>Notification sound</span>
                 <Radio
+                  name='notif_sound_setting'
                   checked={notifSoundOn}
                   onChange={toggleNotifSound}
                   toggle
@@ -74,6 +75,7 @@ class CustomLayout extends React.Component {
               <Dropdown.Item>
                 <span style={{ display: 'inline-block', paddingBottom: '1em' }}>Dashboard sound&nbsp;&nbsp;</span>
                 <Radio
+                  name='dash_sound_setting'
                   checked={dashSoundOn}
                   onChange={toggleDashSound}
                   toggle
@@ -95,7 +97,7 @@ class CustomLayout extends React.Component {
         <Menu fixed="top" inverted>
           <Container>
             <Link to="/">
-              <Menu.Item header><Icon inverted name='home' /> Home</Menu.Item>
+              <Menu.Item header id='menu_item_home'><Icon inverted name='home' /> Home</Menu.Item>
             </Link>
             {authenticated ?
               // if logged in - authenticated
@@ -103,26 +105,26 @@ class CustomLayout extends React.Component {
                 <React.Fragment>
 
                   <Link to="/networkLogs">
-                    <Menu.Item header><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
+                    <Menu.Item header id='menu_item_network_logs'><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
                   </Link>
                   <Link to="/dashboard">
-                    <Menu.Item header><Icon inverted name='dashboard' /> Dashboard</Menu.Item>
+                    <Menu.Item header id='menu_item_dashboard'><Icon inverted name='dashboard' /> Dashboard</Menu.Item>
                   </Link>
                   <Link to="/visualisations">
-                    <Menu.Item header><Icon inverted name='line graph' /> Visualisations</Menu.Item>
+                    <Menu.Item header id='menu_item_visualisations'><Icon inverted name='line graph' /> Visualisations</Menu.Item>
                   </Link>
                   <Link to="/notifications">
-                    <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
+                    <Menu.Item header id='menu_item_notifications'><Icon inverted name='bell' /> Notifications</Menu.Item>
                   </Link>
 
                   <Menu.Menu position='right'>
                     {/* tshark restart */}
-                    <Menu.Item header onClick={() => this.restart_tshark()}><Icon inverted name='redo' /> Tshark</Menu.Item>
+                    <Menu.Item header id='menu_item_tshark' onClick={() => this.restart_tshark()}><Icon inverted name='redo' /> Tshark</Menu.Item>
                     {/* settings panel */}
                     <this.settingsMenu></this.settingsMenu>
                     {/* logout */}
                     <Link to="/">
-                      <Menu.Item header onClick={() => this.props.logout()}>
+                      <Menu.Item header id='menu_item_logout' onClick={() => this.props.logout()}>
                         <Icon inverted name='log out' /> Logout
                       </Menu.Item>
                     </Link>
@@ -134,22 +136,22 @@ class CustomLayout extends React.Component {
               (
                 <React.Fragment>
                   <Link to="/login">
-                    <Menu.Item header><Icon inverted name='sign-in' /> Login</Menu.Item>
+                    <Menu.Item header id='menu_item_login'><Icon inverted name='sign-in' /> Login</Menu.Item>
                   </Link>
                   <Link to="/signup">
-                    <Menu.Item header><Icon inverted name='signup' /> Signup</Menu.Item>
+                    <Menu.Item header id='menu_item_signup'><Icon inverted name='signup' /> Signup</Menu.Item>
                   </Link>
                   {/* <Link to="/networkLogs">
-                    <Menu.Item header><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
+                    <Menu.Item header id='menu_item_network_logs'><Icon inverted name='connectdevelop' /> Network Logs</Menu.Item>
                   </Link>
                   <Link to="/dashboard">
-                    <Menu.Item header><Icon inverted name='dashboard' /> Dashboard</Menu.Item>
+                    <Menu.Item header id='menu_item_dashboard'><Icon inverted name='dashboard' /> Dashboard</Menu.Item>
                   </Link>
                   <Link to="/visualisations">
-                    <Menu.Item header><Icon inverted name='line graph' /> Visualisations</Menu.Item>
+                    <Menu.Item header id='menu_item_visualisations'><Icon inverted name='line graph' /> Visualisations</Menu.Item>
                   </Link>
                   <Link to="/notifications">
-                    <Menu.Item header><Icon inverted name='bell' /> Notifications</Menu.Item>
+                    <Menu.Item header id='menu_item_notifications'><Icon inverted name='bell' /> Notifications</Menu.Item>
                   </Link>
                   <this.settingsMenu></this.settingsMenu> */}
                 </React.Fragment>
@@ -198,7 +200,7 @@ class CustomLayout extends React.Component {
             <Divider inverted section />
             {/* <Image centered size="mini" src="/logo.png" /> */}
             <List horizontal inverted divided link size="small">
-              <List.Item as="a" href="https://github.com/s3r-be/be-project" target='_blank'>
+              <List.Item as="a" href="https://github.com/s3r-be/be-project" target='_blank' id='github_link'>
                 Click here to check the code on Github
               </List.Item>
             </List>

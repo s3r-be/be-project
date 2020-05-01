@@ -7,33 +7,88 @@ The project contains a full stack web app created with React front end and Djang
 1. Ensure you have python 3.6.9, node v12.6.0, npm 6.13.4.
 
 2. Clone the repo and cd to s3r-be-proj-ids
-> cd s3r-be-proj-ids
+```bash
+cd s3r-be-proj-ids 
+ ```
+
 
 3. Create virtual environment for backend development
-> virtualenv env
+```bash
+ virtualenv env
+```
 
 4. Activate the virtual environment
-> source env/bin/activate
+```bash
+ source env/bin/activate
+```
 
 5. Install backend dependencies present in requirements.txt
-> pip3 install -r requirements.txt
+```bash
+ pip3 install -r requirements.txt
+```
 
 6. Install frontend dependencies present in package.json
-> npm i
+```bash
+ npm i
+```
 
 7. Build production folder of the front end
-> npm run build
+```bash
+ npm run build
+```
 
 8. Setup data base with backend
-> python3 manage.py migrate
+```bash
+ python3 manage.py migrate
+```
 
 9. Run backend + build server
-> python3 manage.py runserver
+```bash
+ python3 manage.py runserver
+```
 
-10. To Simulate the node (if actual node is not used) (move to parent dir -> be-project and run the sim)
-> python3 ../node_simulator.py
+10. To Simulate the node (if actual node is not used) 
+```bash
+ python3 home/node_simulator.py
+```
 
-11. The shell script for tshark is in the home folder of s3r-be-proj-ids.
+11. The shell script for tshark is in the home folder of s3r-be-proj-ids.<br/>
+Before you run it, you'll have to replace s3rbeproj with your computer's password.<br/>
+```bash
+ cd home
+ ./tshark_shell_script.sh
+```
+Make sure the script has permissions to execute. If not, run
+```bash
+cd home
+chmod -v +x tshark_shell_script.sh
+```
+
+12. Kill all instances of tshark
+The shell script for kill_all_tshark is in the home folder of s3r-be-proj-ids.<br/>
 Before you run it, you'll have to replace s3rbeproj with your computer's password.
-> cd home<br/>
-> ./tshark_shell_script.sh
+```bash
+cd home
+./kill_all_tshark.sh
+```
+Make sure the script has permissions to execute. If not, run
+```bash
+cd home
+chmod -v +x kill_all_tshark.sh
+```
+
+13. Testing
+
+React Jest Testing
+```bash
+ npm test
+```
+Django Selenium Testing
+```bash
+ python3 manage.py test home.tests
+```
+For selenium testing, Make sure the script addGeckoToUsrBin has permissions to execute. If not, run
+```bash
+cd home
+chmod -v +x addGeckoToUsrBin.sh
+```

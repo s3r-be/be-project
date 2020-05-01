@@ -95,6 +95,7 @@ class RegistrationForm extends React.Component {
                   size="large"
                   loading={loading}
                   disabled={loading}
+                  id='signup_button'
                 >
                   Signup
                 </Button>

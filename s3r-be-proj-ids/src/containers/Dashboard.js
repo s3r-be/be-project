@@ -170,10 +170,12 @@ class Dashboard extends React.Component {
                     <Menu.Item
                         name='Car'
                         onClick={this.ActiveCar}
+                        id='menu_item_car'
                     />
                     <Menu.Item
                         name='Burgler Alarm'
                         onClick={this.ActiveBA}
+                        id='menu_item_alarm'
                     />
                 </Menu>
 
@@ -234,6 +236,7 @@ class Dashboard extends React.Component {
                                                     content='Reset'
                                                     negative  //red color
                                                     onClick={this.handleClose}
+                                                    id='reset_burglar_button'
                                                 />
                                             </Segment>
                                         </Portal>
@@ -245,6 +248,7 @@ class Dashboard extends React.Component {
                                                         size="small"
                                                         floated="right"
                                                         onClick={this.clearLog}
+                                                        id='clear_burglar_log_button'
                                                     >
                                                         Clear
                                                     </Button>

@@ -74,6 +74,7 @@ class LoginForm extends React.Component {
                   size="large"
                   loading={loading}
                   disabled={loading}
+                  id="login_button"
                 >
                   Login
                 </Button>
