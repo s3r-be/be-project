@@ -188,6 +188,7 @@ class Dashboard extends React.Component {
                                 <div >
                                     <img src={img} alt="car" width="450" style={{ top: "593px", right: this.state.pos_car + 250 + "px", position: "absolute" }} />
                                     <p style={{ color: 'white', fontSize: '55px', top: "220px", left: "60px", position: "absolute" }}>  {(this.state.node_pos_car / 100).toFixed(2)} m</p>
+                                    {/* accessing sound settings for dashboard */}
                                     <SoundContext.Consumer>
                                         {({ dashSoundOn }) => (
                                             <React.Fragment>
@@ -225,13 +226,22 @@ class Dashboard extends React.Component {
                                                 <Header>Intruder Alert</Header>
                                                 <p>The time is {this.state.time}.</p>
                                                 <p>Movement detected at distance of {this.state.burglar_distance} meters. </p>
-                                                <Sound
-                                                    url={burglersound}
-                                                    playStatus={Sound.status.PLAYING}
-                                                    onLoading={this.handleSongLoading}
-                                                    onPlaying={this.handleSongPlaying}
-                                                    onFinishedPlaying={this.handleSongFinishedPlaying}
-                                                />
+                                                {/* accessing sound settings for dashboard */}
+                                                <SoundContext.Consumer>
+                                                    {({ dashSoundOn }) => (
+                                                        <React.Fragment>
+                                                            {dashSoundOn ? (
+                                                                <Sound
+                                                                    url={burglersound}
+                                                                    playStatus={Sound.status.PLAYING}
+                                                                    onLoading={this.handleSongLoading}
+                                                                    onPlaying={this.handleSongPlaying}
+                                                                    onFinishedPlaying={this.handleSongFinishedPlaying}
+                                                                />
+                                                            ) : null}
+                                                        </React.Fragment>
+                                                    )}
+                                                </SoundContext.Consumer>
                                                 <Button
                                                     content='Reset'
                                                     negative  //red color

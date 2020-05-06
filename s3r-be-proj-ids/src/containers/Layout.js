@@ -63,7 +63,6 @@ class CustomLayout extends React.Component {
               <Dropdown.Item>
                 <span style={{ display: 'inline-block', paddingBottom: '1em' }}>Notification sound</span>
                 <Radio
-                  name='notif_sound_setting'
                   checked={notifSoundOn}
                   onChange={toggleNotifSound}
                   toggle
@@ -75,7 +74,6 @@ class CustomLayout extends React.Component {
               <Dropdown.Item>
                 <span style={{ display: 'inline-block', paddingBottom: '1em' }}>Dashboard sound&nbsp;&nbsp;</span>
                 <Radio
-                  name='dash_sound_setting'
                   checked={dashSoundOn}
                   onChange={toggleDashSound}
                   toggle
