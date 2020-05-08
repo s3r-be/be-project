@@ -54,6 +54,8 @@ export const authLogin = (username, password) => {
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {
+        // change error message to output - form field : error message
+        err.message = Object.keys(err.response.data)[0] + " : " + Object.values(err.response.data)[0][0];
         dispatch(authFail(err));
       });
   };
@@ -78,6 +80,8 @@ export const authSignup = (username, email, password1, password2) => {
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {
+        // change error message to output - form field : error message
+        err.message = Object.keys(err.response.data)[0] + " : " + Object.values(err.response.data)[0][0];
         dispatch(authFail(err));
       });
   };

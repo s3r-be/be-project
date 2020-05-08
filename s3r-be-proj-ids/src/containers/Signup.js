@@ -45,7 +45,7 @@ class RegistrationForm extends React.Component {
           <Header as="h2" color="teal" textAlign="center">
             Signup to your account
           </Header>
-          {error && <p>{this.props.error.message}</p>}
+          <span style={{ color : 'red'}}>{error && <p>{this.props.error.message}</p>}</span>
 
           <React.Fragment>
             <Form size="large" onSubmit={this.handleSubmit}>
