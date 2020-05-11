@@ -35,8 +35,9 @@ class App extends Component {
       play_attack_rcvd: false,
       play_scan_rcvd: false,
       // used to control toggle of sound setting
-      notifSoundOn: true,
-      dashSoundOn: true,
+      // using local storage to store the settings in session variables so settings are not reset after page reload
+      notifSoundOn: localStorage.getItem('notifSoundOn') == null ? true : (localStorage.getItem('notifSoundOn') == 'true' ? true : false),
+      dashSoundOn: localStorage.getItem('dashSoundOn') == null ? true : (localStorage.getItem('dashSoundOn') == 'true' ? true : false),
       toggleNotifSound: this.toggleNotifSound,
       toggleDashSound: this.toggleDashSound
     }
@@ -45,12 +46,14 @@ class App extends Component {
   toggleNotifSound = () => {
     this.setState((prevState) => ({ notifSoundOn: !prevState.notifSoundOn }), () => {
       // console.log('toggled notif sound- ' + this.state.notifSoundOn);
+      localStorage.setItem('notifSoundOn', this.state.notifSoundOn);
     })
   }
 
   toggleDashSound = () => {
     this.setState((prevState) => ({ dashSoundOn: !prevState.dashSoundOn }), () => {
       // console.log('toggled dash sound- ' + this.state.dashSoundOn);
+      localStorage.setItem('dashSoundOn', this.state.dashSoundOn);
     })
   }
 
@@ -116,6 +119,9 @@ class App extends Component {
             // console.log('play_attack_rcvd: ' + this.state.play_attack_rcvd);
           }.bind(this), 1000);
         }
+
+        // move to notifications page after clicking on the notification
+        document.getElementsByClassName('notification-parent')[0].setAttribute('onClick','window.location.href = "/notifications";');
       }
 
       // appending received message to state

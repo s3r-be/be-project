@@ -20,7 +20,7 @@ class Notifications extends React.Component {
         let headers = [];
 
         // add headers to the table
-        headers.push(<Table.HeaderCell key='Attack Type'>Attack Type</Table.HeaderCell>);
+        headers.push(<Table.HeaderCell key='Attack Type' style={{ color : 'red' }}>Attack Type</Table.HeaderCell>);
         headers.push(<Table.HeaderCell key='Frame Number'>Frame Number</Table.HeaderCell>);
         headers.push(<Table.HeaderCell key='Frame Time'>Frame Time</Table.HeaderCell>);
         headers.push(<Table.HeaderCell key='Frame Length'>Frame Length</Table.HeaderCell>);
@@ -39,7 +39,8 @@ class Notifications extends React.Component {
         // Outer loop to create parent
         for (let i = this.props.notifList.length - 1; i >= 0; i--) {
             let children = []
-            children.push(<Table.Cell>{this.props.notifList[i]['attack.type']}</Table.Cell>)
+            let attackColor = this.props.notifList[i]['attack.type'] === 'Scan Attack' ? 'orange' : 'red';
+            children.push(<Table.Cell style={{ color : attackColor }}>{this.props.notifList[i]['attack.type']}</Table.Cell>)
             children.push(<Table.Cell>{this.props.notifList[i]['frame.number']}</Table.Cell>)
             children.push(<Table.Cell>{this.props.notifList[i]['frame.time']}</Table.Cell>)
             children.push(<Table.Cell>{this.props.notifList[i]['frame.len']}</Table.Cell>)
