@@ -4,7 +4,7 @@ The project contains a full stack web app created with React front end and Djang
 
 ## Steps to install and run the application:
 
-1. Ensure you have python 3.6.9, node v12.16.0, npm 6.14.5.
+1. Ensure you have python 3.6.9, node v12.16.0, npm 6.14.5, apache 2.4.29.
 
 2. Clone the repo and cd to s3r-be-proj-ids
 ```bash
@@ -42,17 +42,23 @@ cd s3r-be-proj-ids
  python3 manage.py migrate
 ```
 
-9. Run backend + build server
+9. Setup apache2 server - install apache2 or xampp and copy the ids folder in the web server directory. If you've installed xampp, you need to find the htdocs dir. If you've installed apache2, run this command from be-project dir.
+```bash
+cd be-project
+sudo cp ids /var/www/html/ -r
+```
+
+10. Run backend + build server
 ```bash
  python3 manage.py runserver
 ```
 
-10. To Simulate the node (if actual node is not used) 
+11. To Simulate the node (if actual node is not used) 
 ```bash
  python3 home/node_simulator.py
 ```
 
-11. The shell script for tshark is in the home folder of s3r-be-proj-ids.<br/>
+12. The shell script for tshark is in the home folder of s3r-be-proj-ids.<br/>
 Before you run it, you'll have to replace s3rbeproj with your computer's password.<br/>
 ```bash
  cd home
@@ -64,7 +70,7 @@ cd home
 chmod -v +x tshark_shell_script.sh
 ```
 
-12. Kill all instances of tshark
+13. Kill all instances of tshark
 The shell script for kill_all_tshark is in the home folder of s3r-be-proj-ids.<br/>
 Before you run it, you'll have to replace s3rbeproj with your computer's password.
 ```bash
@@ -77,7 +83,7 @@ cd home
 chmod -v +x kill_all_tshark.sh
 ```
 
-13. Testing
+14. Testing
 
 React Jest Testing
 ```bash
