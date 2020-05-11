@@ -20,17 +20,19 @@ class App extends Component {
     this.chatSocket = props.chatSocket;
     this.state = {
       // list of all the attack notifications
-      notifList: [],
+      // using local storage to store the state in session, so it doesn't get reset after page reload
+      notifList: localStorage.getItem('notifList') == null ? [] : JSON.parse(localStorage.getItem('notifList')),
       // list of all the network logs
       netLogs: [],
       // dictionary to maintain the number of each attack
-      attackStats: {
+      // using local storage to store the state in session, so it doesn't get reset after page reload
+      attackStats: localStorage.getItem('attackStats') == null ? {
         'Wrong Setup': 0,
         'DDOS': 0,
         'Data Type Probing': 0,
         'Scan Attack': 0,
         'MITM': 0
-      },
+      } : JSON.parse(localStorage.getItem('attackStats')),
       // used to set off notification sound
       play_attack_rcvd: false,
       play_scan_rcvd: false,
@@ -129,7 +131,11 @@ class App extends Component {
         notifList: [...prevState.notifList, data],
         // set the stats of current attack type to one more than previous (increment count)
         attackStats: { ...prevState.attackStats, [data['attack.type']]: prevState.attackStats[data['attack.type']] + 1 }
-      }))
+      }), () => {
+        // saving the state of notif list and attack stats in session (local storage) - get it back after page reload
+        localStorage.setItem('notifList', JSON.stringify(this.state.notifList));
+        localStorage.setItem('attackStats', JSON.stringify(this.state.attackStats));
+      })
       // console.log('attack notif: ' + data.message);
       // console.log('state notif list: ', this.state.notifList);
     };
