@@ -38,9 +38,12 @@ class ChatConsumer(WebsocketConsumer):
     def follow(self, thefile):
         thefile.seek(0, 2)  # 0 is offset, 2 is whence (relative to file end)
         while True:
-            line = thefile.readline()
+            try:
+                line = thefile.readline()
+            except:
+                continue
             if not line:
-                time.sleep(0.1)
+                time.sleep(0.001)
                 continue
             yield line  # return line
 
