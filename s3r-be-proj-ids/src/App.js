@@ -24,6 +24,8 @@ class App extends Component {
       notifList: localStorage.getItem('notifList') == null ? [] : JSON.parse(localStorage.getItem('notifList')),
       // list of all the network logs
       netLogs: [],
+      // max number of records to store in netlogs
+      netLogsLengthThresh: 1000,
       // dictionary to maintain the number of each attack
       // using local storage to store the state in session, so it doesn't get reset after page reload
       attackStats: localStorage.getItem('attackStats') == null ? {
@@ -123,7 +125,7 @@ class App extends Component {
         }
 
         // move to notifications page after clicking on the notification
-        document.getElementsByClassName('notification-parent')[0].setAttribute('onClick','window.location.href = "/notifications";');
+        document.getElementsByClassName('notification-parent')[0].setAttribute('onClick', 'window.location.href = "/notifications";');
       }
 
       // appending received message to state
@@ -152,10 +154,20 @@ class App extends Component {
     // on receiving message
     this.chatSocket.onmessage = (e) => {
       var data = JSON.parse(e.data);
+
+      // check if length of netLogs is greater than threshold
+      // if yes delete first rows of netLogs
+      var oNetLogs = this.state.netLogs;
+      while (oNetLogs.length > this.state.netLogsLengthThresh) {
+        oNetLogs.shift();
+      }
+
       // appending received message to state
-      this.setState(prevState => ({
-        netLogs: [...prevState.netLogs, data]
-      }))
+      oNetLogs.push(data);
+      this.setState({
+        netLogs: oNetLogs
+      });
+
       // console.log(data);
       // console.log('state netLogs: ', this.state.netLogs);
     };
