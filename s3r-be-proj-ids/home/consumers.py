@@ -106,9 +106,12 @@ class attackNotif(WebsocketConsumer):
     def follow(self, thefile):
         thefile.seek(0, 2)  # 0 is offset, 2 is whence (relative to file end)
         while True:
-            line = thefile.readline()
+            try:
+                line = thefile.readline()
+            except:
+                continue
             if not line:
-                time.sleep(0.1)
+                time.sleep(0.001)
                 continue
             yield line  # return line
 
@@ -119,6 +122,7 @@ class attackNotif(WebsocketConsumer):
         prev_mac_source = ''
         prev_mac_dest = ''
         prev_prediction = 0
+        scanDict = {}
 
         # receive message sent from front end
         text_data_json = json.loads(text_data)
@@ -144,7 +148,7 @@ class attackNotif(WebsocketConsumer):
             # however some dataframes will show len < 13 because the data is written incompletely by tshark
             # every few seconds 1 dataframe will be dropped
 
-            if len(line) == 13:
+            if len(line) == 13:  # ----------------------------------------------------------- data cleaning
 
                 line[1] = line[1].split(' ')[3].replace(
                     ':', '').replace('.', '')  # pre time
@@ -179,9 +183,13 @@ class attackNotif(WebsocketConsumer):
                 except Exception as ex:
                     line[11] = 0
                 value = -99
-                if(line[-1].startswith("GET / HTTP/1.1 ")):
+
+                # ------------------------------------------------------------------------ data preprocessing
+
+                if(line[-1].startswith("GET / HTTP/1.1 ")):  # NORMAL DATA
                     value = -99
-                elif (line[-1].startswith("GET")):  # wrong setup and data type probing
+
+                elif (line[-1].startswith("GET")):  # WRONG SETUP / DATA TYPE PROBING
                     a = line[-1].split("=")
                     try:  # if = hasn't been read, index 1 doesn't exist
                         b = (a[1].split(" "))
@@ -192,16 +200,33 @@ class attackNotif(WebsocketConsumer):
                             value = -3
                     except Exception as ex:
                         value = -99
-                elif(line[-1].startswith("Echo")):  # ddos
-                    value = -2
-                elif (line[-1].startswith("Who")):  # scan
-                    value = -4
 
-                elif "duplicate " in line[-1]:  # mitm
+                elif(line[-1].startswith("Echo")):  # DDOS
+                    value = -2
+
+                elif (line[-1].startswith("Who")):  # SCAN
+                    ethSrc = line[3]
+                    timeStamp = int(line[1])
+                    if ethSrc in scanDict:  # check if eth src in scan dict
+                        # if yes, check if time diff is greater than 2 sec
+                        if timeStamp - scanDict[ethSrc][0] > 2000000000 and scanDict[ethSrc][1] > 150:
+                            value = -4  # scan attack detected
+                            # update timestamp and frequency
+                            scanDict[ethSrc] = [timeStamp, 0]
+                        else:  # if diff less than 2 sec
+                            scanDict[ethSrc][1] += 1  # update frequency
+                    else:  # eth src not in scanDict
+                        value = -99  # pass - reduntant detection
+                        # create dict record for eth src with time stamp, frequency as value
+                        scanDict[ethSrc] = [timeStamp, 0]
+
+                elif "duplicate " in line[-1]:  # MITM
                     value = -5
                 else:
                     value = -99
                 line[-1] = value
+
+                # ------------------------------------------------------------------------ prediction
 
                 ip_df = pd.DataFrame([line[1:]])
                 prediction = rf_model.predict(ip_df)[0]
