@@ -50,7 +50,7 @@ sudo cp ids /var/www/html/ -r
 
 10. Run backend + build server
 ```bash
- python3 manage.py runserver
+ python3 manage.py runserver 0.0.0.0:8000
 ```
 
 11. To Simulate the node (if actual node is not used) 
