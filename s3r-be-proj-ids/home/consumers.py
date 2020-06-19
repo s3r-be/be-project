@@ -274,7 +274,8 @@ class phpSocket(WebsocketConsumer):
 
     # receive request and start a loop to send node data back
     def receive(self, text_data):
-        URL = 'http://localhost/ids/datastorage.txt'
+        myhost = os.uname()[1]
+        URL = 'http://' + myhost + '/ids/datastorage.txt'
         while(1):
             r = requests.get(url=URL)
             self.send(r.text)
