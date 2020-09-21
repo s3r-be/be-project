@@ -6,6 +6,7 @@ import pickle
 import sklearn
 import pandas as pd
 import requests
+from csv import writer
 
 # specify file name of machine learning model - pickle file
 filename = 'home/model2.txt'
@@ -20,6 +21,16 @@ attack_type = {
     3: 'Data Type Probing',
     4: 'Scan Attack',
     5: 'MITM'
+}
+
+# value to label map - used to create resultfile.csv - for classification report
+value_to_label = {
+    -99: 0,
+    0: 1,
+    -2: 2,
+    -3: 3,
+    -4: 4,
+    -5: 5
 }
 
 # ---------------------------------------------------------------------------------------- chat consumer - network logs
@@ -132,6 +143,10 @@ class attackNotif(WebsocketConsumer):
         workpath = os.path.dirname(os.path.abspath(__file__))
         logfile = open(os.path.join(workpath, "file.csv"), "r")
 
+        # open csv to append actual, predicted values, used later for classification report
+        # resultfile = open(os.path.join(workpath, "resultfile.csv"), "a")
+        # csv_writer = writer(resultfile)
+
         # check if file.csv is populated, number of lines should be greater than 1
         while(len([line for line in logfile]) <= 1):
             continue
@@ -230,6 +245,10 @@ class attackNotif(WebsocketConsumer):
 
                 ip_df = pd.DataFrame([line[1:]])
                 prediction = rf_model.predict(ip_df)[0]
+
+                # append a row of value and prediction to the resultfile.csv - used for classification report
+                # csv_writer.writerow([value_to_label.get(value, 0), prediction])
+
                 if prediction != 0:
                     # print('attack: ' + str(prediction))
                     # still a string to this point
